@@ -7,6 +7,7 @@ public class Board {
 	private PieceThread boardCells[][];
 	private int scores[] = {0,0,0,0};
 	
+	
 	/**
 	 * Constructor method
 	 * 
@@ -20,6 +21,7 @@ public class Board {
 		this.boardHeight = height;
 		boardCells = new PieceThread[this.boardWidth][this.boardHeight];
 	}
+	
 	
 	/**
 	 * Attempt to retrieve a PieceThread from a specified position on the board
@@ -40,6 +42,19 @@ public class Board {
 			return this.boardCells[x][y];
 		}
 	}
+	
+	
+	/**
+	 * Retrieve 2-D array containing all cells
+	 * 
+	 * @return  2-D array containing all cells ( PieceThread[col][row] ); left
+	 * 			to right, top to bottom
+	 */
+	public PieceThread[][] getAllCells()
+	{
+		return this.boardCells;
+	}
+	
 	
 	/**
 	 * Place the provided Piece Thread in the specified position
@@ -63,6 +78,7 @@ public class Board {
 		}
 	}
 	
+	
 	/**
 	 * increments the score of the specified team
 	 * 
@@ -85,10 +101,15 @@ public class Board {
 		}
 	}
 	
+	
 	/**
 	 * Retrieve the array of scores for each team
 	 * 
 	 *  @return array of team scores ints, i.e. {team1, team2, team3, team4}
 	 */
-	public int[] getScores() { return this.scores; }
+	public int[] getScores()
+	{
+		return this.scores;
+	}
+	
 }
