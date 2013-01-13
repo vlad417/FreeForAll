@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="none"
+                android:paddingRight="3dp"
                 android:text="@string/team1_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/team1" />
@@ -80,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="none"
+                android:paddingRight="3dp"
                 android:text="@string/team2_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/team2" />
@@ -107,6 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="none"
+                android:paddingRight="3dp"
                 android:text="@string/team3_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/team3" />
@@ -134,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="none"
+                android:paddingRight="3dp"
                 android:text="@string/team4_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/team4" />
