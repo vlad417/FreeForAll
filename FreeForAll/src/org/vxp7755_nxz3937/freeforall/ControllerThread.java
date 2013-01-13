@@ -15,6 +15,9 @@ public class ControllerThread extends Thread {
 	
 	public final int SPAWNTYPE_SYS   = 1;
 	public final int SPAWNTYPE_USER  = 2;
+	
+	public final int DEFAULT_SPAWN_TIME = 6000;
+	public final int DEFAULT_MOVE_TIME = 1000;
 
 	public Handler boardHandler;
 	private Board board;
@@ -110,4 +113,55 @@ public class ControllerThread extends Thread {
 	
 	/** Get the board */
 	public Board getBoard() { return board; }
+	
+	
+	/**
+	 * Decrease delay multiplier
+	 */
+	public void speedUp()
+	{
+		if (this.speedMultiplier > 0.25) {
+			this.speedMultiplier -= 0.25;
+		}
+		Log.i("SpeedUp", String.format("SpeedMultiplier = %f",
+											this.speedMultiplier));
+	}
+	
+	
+	/**
+	 * Increase delay multiplier
+	 */
+	public void slowDown()
+	{
+		if (this.speedMultiplier < 2.0 ) {
+			this.speedMultiplier += 0.25;
+		}
+		Log.i("SlowDown", String.format("SpeedMultiplier = %f",
+				this.speedMultiplier));
+	}
+	
+	/**
+	 * Modify whether or not the simulation is pause
+	 * 
+	 * @param value true to pause the sim, otherwise false
+	 */
+	public void switchPause( boolean value )
+	{
+		this.paused = value;
+		if (this.paused) {
+			Log.i("switchPause", "paused = true");
+		} else {
+			Log.i("switchPause", "paused = false");
+		}
+	}
+	
+	/**
+	 * Retrieves the move delay used by PieceThreads
+	 * 
+	 * @return delay in ms, which PieceThe reads should wait between moving
+	 */
+	public int getMoveDelay()
+	{
+		return (int) (this.speedMultiplier * this.DEFAULT_MOVE_TIME);
+	}
 }

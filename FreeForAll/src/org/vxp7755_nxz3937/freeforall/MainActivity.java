@@ -29,9 +29,12 @@ import android.os.Process;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
+	
+	public ControllerThread _ctrlr;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -51,17 +54,26 @@ public class MainActivity extends Activity implements OnClickListener {
 		slowDownButton.setOnClickListener(this);
 		
 		// get reference to controller.
+		MainView v = (MainView) getWindow().getDecorView().
+				findViewById(R.id.mainView);
+		_ctrlr = v._ctrlr;
+		
 	}
 
 	/** Called when a click event occurs */
 	public void onClick(View v) {
 		switch (v.getId()) {
 			//speedup action
-			case R.id.speedup_button:	break;
+			case R.id.speedup_button:	_ctrlr.speedUp();
+										break;
 			//slowdown action
-			case R.id.slowdown_button:	break;
+			case R.id.slowdown_button:	_ctrlr.slowDown();
+										break;
 			// pause action
-			case R.id.pause_button:		break;
+			case R.id.pause_button:		CheckBox box = (CheckBox) findViewById(
+											R.id.pause_button);
+										_ctrlr.switchPause(box.isChecked());
+										break;
 		}
 	}
 	

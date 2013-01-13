@@ -30,7 +30,7 @@ public class MainView extends View {
 	private int _mode;
 	private Board _board;
 	private Paint[] _cellColors;
-	private ControllerThread _ctrlr;
+	public ControllerThread _ctrlr;
 	
 	
 	public RefreshHandler _redrawHandler = new RefreshHandler();

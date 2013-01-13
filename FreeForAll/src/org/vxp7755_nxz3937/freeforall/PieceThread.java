@@ -54,7 +54,11 @@ public abstract class PieceThread extends Thread {
 			boardMsg.obj  = mv;
 			_ctrlr.boardHandler.sendMessage( boardMsg );
 			
-			sleep( _ctrlr.getMoveDelay() );
+			try {
+				sleep( _ctrlr.getMoveDelay() );
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
