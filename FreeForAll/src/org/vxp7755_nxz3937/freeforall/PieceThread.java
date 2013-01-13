@@ -1,4 +1,4 @@
-package org.vxp7755.freeforall;
+package org.vxp7755_nxz3937.freeforall;
 
 public abstract class PieceThread extends Thread {
 	private int x;

@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.vxp7755.freeforall;
+package org.vxp7755_nxz3937.freeforall;
 
 import org.vxp7755_nxz3937.freeforall.R;
 
@@ -53,9 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.exit_button:
-				int pid = Process.myPid();
-				Process.killProcess( pid );
-				break;
+				
 		}
 	}
 	

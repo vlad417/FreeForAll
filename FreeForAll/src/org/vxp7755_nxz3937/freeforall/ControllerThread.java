@@ -14,6 +14,9 @@ public class ControllerThread extends Thread {
 	public final int MSGTYPE_MOVER   = 1;
 	public final int MSGTYPE_SPAWNER = 2;
 	public final int MSGTYPE_QUIT    = 3;
+	
+	public final int SPAWNTYPE_SYS   = 1;
+	public final int SPAWNTYPE_USER  = 2;
 
 	private Handler boardHandler;
 	private Board board;
@@ -82,7 +85,14 @@ public class ControllerThread extends Thread {
 			
 			private void handleSpawner( Message msg )
 			{
-				
+				if( msg.arg1 == SPAWNTYPE_SYS )
+				{
+					
+				}
+				else // SPAWNTYPE_USER
+				{
+					
+				}
 			}
 		};
 		
