@@ -7,6 +7,12 @@ public class Board {
 	private PieceThread boardCells[][];
 	private int scores[] = {0,0,0,0};
 	
+	/**
+	 * Constructor method
+	 * 
+	 * @param width		width of the game board in cells
+	 * @param height	height of the game board in cells
+	 */
 	Board( int width, int height)
 	{
 		// init boardCells
@@ -31,7 +37,13 @@ public class Board {
 	 */
 	public boolean setCell( int x, int y, PieceThread piece )
 	{
-		this.boardCells[x][y] = piece;
+		if ( (x < 0 || x >= this.boardWidth )
+				|| (y < 0 || y >= this.boardHeight) ) {
+			return false;
+		} else {
+			this.boardCells[x][y] = piece;
+			return true;
+		}
 	}
 	
 	/**
