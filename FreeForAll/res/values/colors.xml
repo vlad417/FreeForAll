@@ -5,5 +5,6 @@
 	<color name="team2">#00ff00</color>
 	<color name="team3">#0000ff</color>
 	<color name="team4">#ffff00</color>
+	<color name="emptyCell">#000000</color>
     
 </resources>

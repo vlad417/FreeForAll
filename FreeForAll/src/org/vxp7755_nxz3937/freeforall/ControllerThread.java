@@ -19,13 +19,14 @@ public class ControllerThread extends Thread {
 	private Board board;
 	private boolean paused;
 	private double speedMultiplier;
-	private View ui;
+	private MainView ui;
 	
-	ControllerThread( View gui )
+	ControllerThread( MainView gui )
 	{
 		paused          = false;
 		speedMultiplier = 1.0;
 		ui              = gui;
+		board           = new Board( ui.GRID_WIDTH, ui.GRID_HEIGHT );
 	}
 	
 	@Override
@@ -96,4 +97,13 @@ public class ControllerThread extends Thread {
 		
 		Looper.loop();
 	}
+	
+	/** Call the UI to redraw board */
+	public void drawCell()
+	{
+		ui._redrawHandler.sendEmptyMessage( 0 );
+	}
+	
+	/** Get the board */
+	public Board getBoard() { return board; }
 }

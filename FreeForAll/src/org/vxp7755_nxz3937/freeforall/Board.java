@@ -32,6 +32,8 @@ public class Board {
 	public boolean setCell( int x, int y, PieceThread piece )
 	{
 		this.boardCells[x][y] = piece;
+		
+		return true;
 	}
 	
 	/**

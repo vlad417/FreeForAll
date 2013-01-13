@@ -29,6 +29,7 @@ import android.os.Process;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 	
@@ -36,7 +37,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.main);
+		setContentView(R.layout.main);
+		
+		TextView team1 = (TextView) findViewById(R.id.team1_score);
+		team1.getAlpha();
 		
 		// click-handlers for buttons
 		View pauseButton = findViewById(R.id.pause_button);

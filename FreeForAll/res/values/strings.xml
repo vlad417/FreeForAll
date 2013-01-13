@@ -15,8 +15,8 @@
 	<string name="pause_string">Pause</string>
 	<string name="speedup_string">++</string>
 	<string name="slowdown_string">--</string>
-	<string name="team1_title">Team 1</string>
-	<string name="team2_title">Team 2</string>
-	<string name="team3_title">Team 3</string>
-	<string name="team4_title">Team 4</string>
+	<string name="team1_title">Team 1: </string>
+	<string name="team2_title">Team 2: </string>
+	<string name="team3_title">Team 3: </string>
+	<string name="team4_title">Team 4: </string>
 </resources>
