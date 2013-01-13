@@ -1,6 +1,7 @@
 package org.vxp7755.freeforall;
 
 import android.os.Handler;
+import android.os.Message;
 
 public class ControllerThread extends Thread {
 
@@ -15,7 +16,11 @@ public class ControllerThread extends Thread {
 		speedMultiplier = 1.0;
 		
 		boardHandler = new Handler(){
-			
+			@Override
+			public void handleMessage( Message msg )
+			{
+				
+			}
 		};
 	}
 }
