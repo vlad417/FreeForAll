@@ -1,11 +1,12 @@
 package org.vxp7755_nxz3937.freeforall;
 
 import android.os.Message;
+import android.util.Log;
 
 public abstract class PieceThread extends Thread {
-	private int _x;
-	private int _y;
-	private int _team;
+	protected int _x;
+	protected int _y;
+	protected int _team;
 	private boolean _alive;
 	private ControllerThread _ctrlr;
 	
@@ -57,6 +58,7 @@ public abstract class PieceThread extends Thread {
 			try {
 				sleep( _ctrlr.getMoveDelay() );
 			} catch (InterruptedException e) {
+				Log.e( "PieceThread", "sleep interrupted" );
 				e.printStackTrace();
 			}
 		}
