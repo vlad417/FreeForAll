@@ -21,9 +21,24 @@ public class Board {
 		boardCells = new PieceThread[this.boardWidth][this.boardHeight];
 	}
 	
+	/**
+	 * Attempt to retrieve a PieceThread from a specified position on the board
+	 * 
+	 * @param x		horizontal position to get piece from, left to right
+	 * @param y		vertical position to get piece from, top to bottom
+	 * @return	PieceTread from specified cell, will be null if cell is empty
+	 * 			of if an invalid position is specified
+	 */
 	public PieceThread getCell( int x, int y )
 	{
-		return null;
+		if ( (x < 0 || x >= this.boardWidth )
+				|| (y < 0 || y >= this.boardHeight) ) {
+			// return null if invalid position provided
+			return null;
+		} else {
+			// otherwise, update cell
+			return this.boardCells[x][y];
+		}
 	}
 	
 	/**
@@ -39,8 +54,10 @@ public class Board {
 	{
 		if ( (x < 0 || x >= this.boardWidth )
 				|| (y < 0 || y >= this.boardHeight) ) {
+			// return false if invalid position provided
 			return false;
 		} else {
+			// otherwise, update cell
 			this.boardCells[x][y] = piece;
 			return true;
 		}
