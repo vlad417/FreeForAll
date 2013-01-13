@@ -97,6 +97,7 @@ public class MainView extends View {
 			team3.setText( scores[2] );
 			team4.setText( scores[3] );
 		}
+		
 	}
 	
 	/** Implement this method to handle touch screen motion events and toggle a user spawn. */
