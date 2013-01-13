@@ -1,28 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:background="@color/background" android:layout_height="fill_parent"
-	android:layout_width="fill_parent" android:padding="30dip"
-	android:orientation="horizontal">
-	<LinearLayout android:orientation="vertical"
-		android:layout_height="wrap_content" android:layout_width="fill_parent"
-		android:layout_gravity="center">
-		<TextView android:text="@string/main_title"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:layout_gravity="center" android:layout_marginBottom="25dip"
-			android:textSize="24.5sp" />
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="30dip" >
 
-		<Button
-		    android:id="@+id/settings_button"
-		    style="@string/settings_label"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="@string/settings_label" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-		<Button android:id="@+id/new_button" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:text="@string/new_game_label" />
-		<Button android:id="@+id/about_button" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:text="@string/about_label" />
-		<Button android:id="@+id/exit_button" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:text="@string/exit_label" />
-	</LinearLayout>
+        <Button
+            android:id="@+id/speedup_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speedup_string" />
+
+        <Button
+            android:id="@+id/slowdown_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/slowdown_string" />
+
+        <CheckBox
+            android:id="@+id/pause_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pause_string" />
+
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="2" >
+
+        <LinearLayout
+            android:layout_column="0"
+            android:layout_gravity="left"
+            android:layout_row="0" >
+
+            <EditText
+                android:id="@+id/team1_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text="@string/team1_title" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/team1_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="67dp"
+            android:layout_height="1dp"
+            android:layout_column="1"
+            android:layout_row="0" />
+
+        <LinearLayout
+            android:layout_column="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0" >
+
+            <EditText
+                android:id="@+id/team2_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text="@string/team2_title" />
+
+            <EditText
+                android:id="@+id/team2_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_column="0"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="1" >
+
+            <EditText
+                android:id="@+id/team3_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text="@string/team3_title" />
+
+            <EditText
+                android:id="@+id/team3_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_column="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="1" >
+
+            <EditText
+                android:id="@+id/team4_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text="@string/team4_title" />
+
+            <EditText
+                android:id="@+id/team4_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none" />
+
+        </LinearLayout>
+
+    </GridLayout>
+
+    <org.vxp7755_nxz3937.freeforall.MainView
+        android:id="@+id/mainView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

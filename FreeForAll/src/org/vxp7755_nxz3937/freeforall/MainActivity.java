@@ -20,7 +20,7 @@
 
 package org.vxp7755_nxz3937.freeforall;
 
-import org.vxp7755_nxz3937.freeforall.R;
+//import org.vxp7755_nxz3937.freeforall.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,23 +36,24 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		//setContentView(R.layout.main);
 		
 		// click-handlers for buttons
-		View settingsButton = findViewById(R.id.settings_button);
-		settingsButton.setOnClickListener(this);
-		View newButton = findViewById(R.id.new_button);
-		newButton.setOnClickListener(this);
-		View aboutButton = findViewById(R.id.about_button);
-		aboutButton.setOnClickListener(this);
-		View exitButton = findViewById(R.id.exit_button);
-		exitButton.setOnClickListener(this);
+		View pauseButton = findViewById(R.id.pause_button);
+		pauseButton.setOnClickListener(this);
+		View speedUpButton = findViewById(R.id.speedup_button);
+		speedUpButton.setOnClickListener(this);
+		View slowDownButton = findViewById(R.id.slowdown_button);
+		slowDownButton.setOnClickListener(this);
+		/* View spawnButton = findViewById(R.id.spawn_button);
+		spawnButton.setOnClickListener(this);*/
+		
 	}
 
 	/** Called when a click event occurs */
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.exit_button:
+			//case R.id.exit_button:
 				
 		}
 	}

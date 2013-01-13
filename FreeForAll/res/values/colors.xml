@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<color name="background">#596f87</color><color name="cell_nbr0">#FF0000</color>
-    <color name="cell_nbr1">#DD2200</color>
-    <color name="cell_nbr2">#BB4400</color>
-    <color name="cell_nbr3">#994400</color>
-    <color name="cell_nbr4">#776600</color>
-    <color name="cell_nbr5">#558800</color>
-    <color name="cell_nbr6">#33AA00</color>
-    <color name="cell_nbr7">#11CC00</color>
-    <color name="cell_nbr8">#00FF00</color>
+	<color name="background">#596f87</color>
+	<color name="team1">#ff0000</color>
+	<color name="team2">#00ff00</color>
+	<color name="team3">#0000ff</color>
+	<color name="team4">#ffff00</color>
     
 </resources>
