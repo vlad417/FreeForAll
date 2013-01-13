@@ -76,8 +76,6 @@ public class Board {
 			this.boardCells[x][y] = piece;
 			return true;
 		}
-		
-		return true;
 	}
 	
 	
