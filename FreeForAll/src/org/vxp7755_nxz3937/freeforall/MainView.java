@@ -95,6 +95,7 @@ public class MainView extends View {
 			team3.setText( scores[2] );
 			team4.setText( scores[3] );
 		}
+		
 	}
 
 	public void paintCell( Canvas canvas, int x, int y, int team )
