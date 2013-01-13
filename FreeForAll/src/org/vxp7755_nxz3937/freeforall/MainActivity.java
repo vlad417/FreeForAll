@@ -49,16 +49,19 @@ public class MainActivity extends Activity implements OnClickListener {
 		speedUpButton.setOnClickListener(this);
 		View slowDownButton = findViewById(R.id.slowdown_button);
 		slowDownButton.setOnClickListener(this);
-		/* View spawnButton = findViewById(R.id.spawn_button);
-		spawnButton.setOnClickListener(this);*/
 		
+		// get reference to controller.
 	}
 
 	/** Called when a click event occurs */
 	public void onClick(View v) {
 		switch (v.getId()) {
-			//case R.id.exit_button:
-				
+			//speedup action
+			case R.id.speedup_button:	break;
+			//slowdown action
+			case R.id.slowdown_button:	break;
+			// pause action
+			case R.id.pause_button:		break;
 		}
 	}
 	
