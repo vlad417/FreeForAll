@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.vxp7755.freeforall" android:versionCode="1"
+	package="org.vxp7755_nxz3937.freeforall" android:versionCode="1"
 	android:versionName="1.0"
 	android:screenOrientation="landscape"
 	android:configChanges="keyboardHidden|orientation|screenSize">>
@@ -8,7 +8,7 @@
               android:targetSdkVersion="17" />
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:debuggable="true">
-		<activity android:name=".MainActivity" android:label="@string/app_name">
+		<activity android:name="org.vxp7755_nxz3937.freeforall.MainActivity" android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />

@@ -1,9 +1,13 @@
-package org.vxp7755.freeforall;
+package org.vxp7755_nxz3937.freeforall;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+<<<<<<< HEAD
 import android.view.View;
+=======
+import org.vxp7755_nxz3937.freeforall.R;
+>>>>>>> refs/remotes/origin/master
 
 public class ControllerThread extends Thread {
 	
