@@ -3,6 +3,7 @@ package org.vxp7755_nxz3937.freeforall;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 //import org.vxp7755_nxz3937.freeforall.R;
 
@@ -15,7 +16,7 @@ public class ControllerThread extends Thread {
 	public final int SPAWNTYPE_SYS   = 1;
 	public final int SPAWNTYPE_USER  = 2;
 
-	private Handler boardHandler;
+	public Handler boardHandler;
 	private Board board;
 	private boolean paused;
 	private double speedMultiplier;
@@ -49,7 +50,10 @@ public class ControllerThread extends Thread {
 						handleSpawner( msg );
 					}
 					else
+					{
+						Log.i("BoardHandler", "Quit request received");
 						this.getLooper().quit();
+					}
 				}
 			}
 			
@@ -85,11 +89,11 @@ public class ControllerThread extends Thread {
 			{
 				if( msg.arg1 == SPAWNTYPE_SYS )
 				{
-					
+					Log.i("BoardHandler", "System spawn request received");
 				}
 				else // SPAWNTYPE_USER
 				{
-					
+					Log.i("BoardHandler", "User spawn request received");
 				}
 			}
 		};

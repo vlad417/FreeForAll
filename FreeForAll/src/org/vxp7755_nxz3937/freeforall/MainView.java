@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -60,6 +61,7 @@ public class MainView extends View {
 		_cellColors[4].setColor(getResources().getColor(R.color.team4));
         
 		_ctrlr = new ControllerThread( this );
+		_ctrlr.start();
 		
 		setFocusable(true);
 	}
@@ -95,6 +97,32 @@ public class MainView extends View {
 			team3.setText( scores[2] );
 			team4.setText( scores[3] );
 		}
+	}
+	
+	/** Implement this method to handle touch screen motion events and toggle a user spawn. */
+	@Override
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		float top   = (float) this.getTop();
+		float bot   = (float) this.getBottom();
+		float left  = (float) this.getLeft();
+		float right = (float) this.getRight();
+		
+		float xAbs = event.getX();
+		float yAbs = event.getY();
+		
+		// If board grid was touched, send a user spawn message
+		if( xAbs > left && xAbs < right && yAbs > top && yAbs < bot )
+		{
+			if( _ctrlr == null )
+				Log.i("OnTouchEvent", "Controller null" );
+			else if( _ctrlr.boardHandler == null)
+				Log.i("OnTouchEvent", "BoardHandler null" );
+			
+			Message msg = _ctrlr.boardHandler.obtainMessage( _ctrlr.MSGTYPE_SPAWNER, _ctrlr.SPAWNTYPE_USER, 0 );
+			_ctrlr.boardHandler.sendMessage( msg );
+		}
+		return true;
 	}
 
 	public void paintCell( Canvas canvas, int x, int y, int team )
