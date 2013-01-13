@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Android Game of Life</string>
+	<string name="main_title">Android Game of Life</string>
+	<string name="new_game_label">New Game</string>
+	<string name="about_label">About</string>
+	<string name="exit_label">Exit</string>
+	<string name="grid_title">Game of Life Grid</string>
+	<string name="about_title">About Android Game of Life</string>
+	<string name="about_text">\
+The Game of Life, also known simply as Life, is a 
+<i>cellular automaton</i> devised by the British mathematician 
+John Horton Conway in 1970. It is the best-known example 
+of a cellular automaton.
+	</string>
+	<string name="settings_label">Settings</string>
+	<string name="settings_title">Game of Life Settings</string>
+	<string name="settings_shortcut">s</string>
+	<!--  
+	<string name="underpopulation_title">Minimum variable</string>
+	<string name="underpopulation_summary">Any live cell with fewer than the minimum number of live neighbours dies, as if caused by under-population</string>
+	<string name="overpopulation_title">Maximum variable</string>
+    <string name="overpopulation_summary"></string>
+    <string name="spawn_title">Spawn variable</string>
+    <string name="spawn_summary"></string>
+    <string name="animation_speed_title">Animation speed</string>
+    <string name="animation_speed_summary"></string>
+    -->
+    <string name="color_coding_title">Color coding?</string>
+    <string name="color_coding_summary">Map the rate of survival to distinct colours</string>
+</resources>
