@@ -20,7 +20,7 @@
 
 package org.vxp7755.freeforall;
 
-import org.vxp7755.freeforall.R;
+import org.vxp7755_nxz3937.freeforall.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -52,18 +52,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	/** Called when a click event occurs */
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.settings_button:
-				Intent settingsIntent = new Intent(this, PreferencesActivity.class);
-				startActivity(settingsIntent);
-				break;
-			case R.id.new_button:
-				Intent gridIntent = new Intent(this, GridActivity.class);
-				startActivity(gridIntent);
-				break;
-			case R.id.about_button:
-				Intent aboutIntent = new Intent(this, AboutActivity.class);
-				startActivity(aboutIntent);
-				break;
 			case R.id.exit_button:
 				int pid = Process.myPid();
 				Process.killProcess( pid );
