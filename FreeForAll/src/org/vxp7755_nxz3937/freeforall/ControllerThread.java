@@ -93,10 +93,24 @@ public class ControllerThread extends Thread {
 				if( msg.arg1 == SPAWNTYPE_SYS )
 				{
 					Log.i("BoardHandler", "System spawn request received");
+					// generate 4 different coordinate sets
+					int cords[][] = new int[4][2];
+					
+					for(int i = 0; i < 4; i++ ) {
+						
+					}
 				}
 				else // SPAWNTYPE_USER
 				{
 					Log.i("BoardHandler", "User spawn request received");
+					// process top-left corner (team 1/red)
+					
+					// process top-right corner (team 2/green)
+					
+					// process bottom-right corner (team 3/ blue)
+					
+					// process bottom-left corner (team 4/yellow)
+					
 				}
 			}
 		};
@@ -163,5 +177,25 @@ public class ControllerThread extends Thread {
 	public int getMoveDelay()
 	{
 		return (int) (this.speedMultiplier * this.DEFAULT_MOVE_TIME);
+	}
+	
+	
+	/**
+	 * Retrieves the spawn delay used by the SpawnerThread
+	 * 
+	 * @return delay in ms, in between system-driven PieceThread spawns
+	 */
+	public int getSpawnDelay() {
+		return this.DEFAULT_SPAWN_TIME;
+	}
+	
+	
+	/**
+	 * Checks if the sim is currently paused
+	 * 
+	 * @return true if sim paused, otherwise false
+	 */
+	public boolean isPaused() {
+		return this.paused;
 	}
 }
