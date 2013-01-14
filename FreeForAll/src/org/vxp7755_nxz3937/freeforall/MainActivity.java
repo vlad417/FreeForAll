@@ -48,10 +48,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		// click-handlers for buttons
 		View pauseButton = findViewById(R.id.pause_button);
 		pauseButton.setOnClickListener(this);
-		View speedUpButton = findViewById(R.id.speedup_button);
-		speedUpButton.setOnClickListener(this);
-		View slowDownButton = findViewById(R.id.slowdown_button);
-		slowDownButton.setOnClickListener(this);
+		View moveSpeedUpButton = findViewById(R.id.move_speedup_button);
+		moveSpeedUpButton.setOnClickListener(this);
+		View moveSlowDownButton = findViewById(R.id.move_slowdown_button);
+		moveSlowDownButton.setOnClickListener(this);
+		View spawnSpeedUpButton = findViewById(R.id.spawn_speedup_button);
+		spawnSpeedUpButton.setOnClickListener(this);
+		View spawnSlowDownButton = findViewById(R.id.spawn_slowdown_button);
+		spawnSlowDownButton.setOnClickListener(this);
 		
 		// get reference to controller.
 		MainView v = (MainView) getWindow().getDecorView().
@@ -63,12 +67,18 @@ public class MainActivity extends Activity implements OnClickListener {
 	/** Called when a click event occurs */
 	public void onClick(View v) {
 		switch (v.getId()) {
-			//speedup action
-			case R.id.speedup_button:	_ctrlr.speedUp();
-										break;
-			//slowdown action
-			case R.id.slowdown_button:	_ctrlr.slowDown();
-										break;
+			//move_speedup action
+			case R.id.move_speedup_button:	_ctrlr.moveSpeedUp();
+											break;
+			//move_slowdown action
+			case R.id.move_slowdown_button:	_ctrlr.moveSlowDown();
+											break;
+			//spawn_speedup action
+			case R.id.spawn_speedup_button:	_ctrlr.spawnSpeedUp();
+											break;
+			//spawn_slowdown action
+			case R.id.spawn_slowdown_button: _ctrlr.spawnSlowDown();
+											 break;
 			// pause action
 			case R.id.pause_button:		CheckBox box = (CheckBox) findViewById(
 											R.id.pause_button);

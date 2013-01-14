@@ -12,6 +12,8 @@
     <string name="animation_speed_title">Animation speed</string>
     <string name="animation_speed_summary"></string>
     -->
+    <string name="move_string">Move Speed</string>
+    <string name="spawn_string">Spawn Speed</string>
 	<string name="pause_string">Pause</string>
 	<string name="speedup_string">++</string>
 	<string name="slowdown_string">--</string>

@@ -8,19 +8,58 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:minWidth="500dp" >
+
+        <TextView
+            android:id="@+id/move_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/move_string"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
-            android:id="@+id/speedup_button"
+            android:id="@+id/move_speedup_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/speedup_string" />
 
         <Button
-            android:id="@+id/slowdown_button"
+            android:id="@+id/move_slowdown_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/slowdown_string" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/spawn_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spawn_string"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/spawn_speedup_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speedup_string" />
+
+        <Button
+            android:id="@+id/spawn_slowdown_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/slowdown_string" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <CheckBox
             android:id="@+id/pause_button"
