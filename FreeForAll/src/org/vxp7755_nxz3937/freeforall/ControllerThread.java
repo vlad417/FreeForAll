@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import java.util.Random;
+import java.util.ArrayList;
 //import org.vxp7755_nxz3937.freeforall.R;
 
 public class ControllerThread extends Thread {
@@ -93,9 +94,9 @@ public class ControllerThread extends Thread {
 			
 			private void handleSpawner( Message msg )
 			{
-				int[] dimensions = Board.getSize();
-				int boardWidth = dimensions[0];
-				int boardHeight = dimensions[1];
+				int boardSize[] = board.getSize();
+				int boardHeight = boardSize[0];
+				int boardWidth = boardSize[1];
 				
 				if( msg.arg1 == SPAWNTYPE_SYS )
 				{
@@ -156,18 +157,52 @@ public class ControllerThread extends Thread {
 		// set new piece
 		board.setCell(x, y, newPiece);
 		
-		// notify view of set new
+		// Send messages to UI to update the cell
+		Handler uiHandler = ui.getHandler();
+		Message updateMsg = uiHandler.obtainMessage();
+		
+		UpdateData updateNewLoc = new UpdateData( x, y, 0, board.getScores() );
+		
+		updateMsg.obj = updateNewLoc;
+		uiHandler.sendMessage(updateMsg);
 		
 		// tell PieceThread to run
-		newPiece.run();
+		newPiece.start();
 		
 	}
 	
 	private int[][]getUniqueCoordinates( int numCoordinates )
 	{
+		int boardSize[] = board.getSize();
+		int boardHeight = boardSize[0];
+		int boardWidth = boardSize[1];
 		
-		int coordinates[][] = new int[numCoordinates][2];
-		return coordinates;
+		ArrayList<int[]> coordinates = new ArrayList<int[]>();
+		
+		// generate coordinates until you have a unique set
+		while (coordinates.size() < numCoordinates) {
+			
+			// generate new coordinates
+			int x = this.random.nextInt(boardWidth);
+			int y = this.random.nextInt(boardHeight);
+			
+			// check that coordinates are unique
+			boolean goodCoordinates = true;
+			for(int[] testCoords : coordinates) {
+				if(testCoords[0] == x && testCoords[0] == y) {
+					goodCoordinates = false;
+				}
+			}
+			
+			// if the new coordinates are good, add them to the ArrayList
+			if (goodCoordinates) {
+				int[] newCoords = {x,y};
+				coordinates.add(newCoords);
+			}
+			
+		}
+		
+		return (int[][]) coordinates.toArray();
 	}
 	
 	/** Call the UI to redraw board */
