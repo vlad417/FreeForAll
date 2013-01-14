@@ -10,12 +10,13 @@ public abstract class PieceThread extends Thread {
 	private boolean _alive;
 	private ControllerThread _ctrlr;
 	
-	PieceThread( int x, int y, int team )
+	PieceThread( int x, int y, int team, ControllerThread ctrlr )
 	{
 		this._x     = x;
 		this._y     = y;
 		this._team  = team;
 		this._alive = true;
+		this._ctrlr = ctrlr;
 	}
 	
 	/**
@@ -92,6 +93,11 @@ public abstract class PieceThread extends Thread {
 	 */
 	protected void ensureMoveOnBoard()
 	{
+		if( _ctrlr == null )
+			Log.e("PieceThread", "Controller is null");
+		else if( _ctrlr.getBoard() == null )
+			Log.e("PieceThread", "Board is null");
+		
 		int boardSize[] = _ctrlr.getBoard().getSize(); 
 		
 		if( _x < 0 )

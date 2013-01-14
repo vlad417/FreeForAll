@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import java.util.Random;
+import java.util.ArrayList;
 //import org.vxp7755_nxz3937.freeforall.R;
 
 public class ControllerThread extends Thread {
@@ -45,8 +46,10 @@ public class ControllerThread extends Thread {
 			@Override
 			public void handleMessage( Message msg )
 			{
+				Log.i("BoardHandler", "Message Received");
 				if( !paused )
 				{
+					Log.i("BoardHandler", String.format("What: %d :: Arg1: %d", msg.what, msg.arg1));
 					if( msg.what == MSGTYPE_MOVER )
 					{
 						handleMover( (MoveObject)msg.obj );
@@ -68,8 +71,11 @@ public class ControllerThread extends Thread {
 			{
 				PieceThread cell = board.getCell( mover.x, mover.y );
 				
+				Log.i("handleMover", "Moving...");
+				
 				if( cell != null ) // If cell occupied
 				{
+					Log.i("handleMover", "Eating...");
 					cell.eaten();
 					board.givePoint( cell.getTeam() );
 				}
@@ -84,6 +90,8 @@ public class ControllerThread extends Thread {
 				
 				UpdateData updateOldLoc = new UpdateData( mover.me.getX(), mover.me.getY(), 0, board.getScores() );
 				UpdateData updateNewLoc = new UpdateData( mover.x, mover.y, 0, board.getScores() );
+				
+				Log.i("moveHandler", "Sending UI a message");
 				
 				updateMsg.obj = updateOldLoc;
 				uiHandler.sendMessage(updateMsg);
@@ -122,6 +130,7 @@ public class ControllerThread extends Thread {
 			}
 		};
 			
+		Log.i("Controller", "Looper starting");
 		Looper.loop();
 	}
 	
@@ -143,31 +152,71 @@ public class ControllerThread extends Thread {
 		int pieceType = this.random.nextInt(4);
 		PieceThread newPiece;
 		switch(pieceType) {
-			case 0:		newPiece = new LeftUp_PieceThread(x, y, team);
+			case 0:		newPiece = new LeftUp_PieceThread(x, y, team, this );
+						Log.i( "Controller", "Spawned LeftUp");
 						break;
-			case 1:		newPiece = new LeftDown_PieceThread(x, y, team);
+			case 1:		newPiece = new LeftDown_PieceThread(x, y, team, this );
+						Log.i( "Controller", "Spawned LeftDown");
 						break;
-			case 2:		newPiece = new RightUp_PieceThread(x, y, team);
+			case 2:		newPiece = new RightUp_PieceThread(x, y, team, this );
+						Log.i( "Controller", "Spawned RightUp");
 						break;
-			default:	newPiece = new RightDown_PieceThread(x, y, team);
+			default:	newPiece = new RightDown_PieceThread(x, y, team, this);
+						Log.i( "Controller", "Spawned RightDown");
 						break;
 		}
 		
 		// set new piece
 		board.setCell(x, y, newPiece);
 		
-		// notify view of set new
+		// Send messages to UI to update the cell
+		Handler uiHandler = ui.getHandler();
+		Message updateMsg = uiHandler.obtainMessage();
+		
+		UpdateData updateNewLoc = new UpdateData( x, y, 0, board.getScores() );
+		
+		Log.i("moveHandler", "Sending UI a message");
+		
+		updateMsg.obj = updateNewLoc;
+		uiHandler.sendMessage(updateMsg);
 		
 		// tell PieceThread to run
-		newPiece.run();
+		newPiece.start();
 		
 	}
 	
 	private int[][]getUniqueCoordinates( int numCoordinates )
 	{
+		int boardSize[] = board.getSize();
+		int boardHeight = boardSize[0];
+		int boardWidth = boardSize[1];
 		
-		int coordinates[][] = new int[numCoordinates][2];
-		return coordinates;
+		ArrayList<int[]> coordinates = new ArrayList<int[]>();
+		
+		// generate coordinates until you have a unique set
+		while (coordinates.size() < numCoordinates) {
+			
+			// generate new coordinates
+			int x = this.random.nextInt(boardWidth);
+			int y = this.random.nextInt(boardHeight);
+			
+			// check that coordinates are unique
+			boolean goodCoordinates = true;
+			for(int[] testCoords : coordinates) {
+				if(testCoords[0] == x && testCoords[0] == y) {
+					goodCoordinates = false;
+				}
+			}
+			
+			// if the new coordinates are good, add them to the ArrayList
+			if (goodCoordinates) {
+				int[] newCoords = {x,y};
+				coordinates.add(newCoords);
+			}
+			
+		}
+		
+		return (int[][]) coordinates.toArray();
 	}
 	
 	/** Call the UI to redraw board */

@@ -1,5 +1,7 @@
 package org.vxp7755_nxz3937.freeforall;
 
+import android.util.Log;
+
 public class Board {
 	
 	private int boardWidth;
@@ -95,7 +97,7 @@ public class Board {
 			return -1;
 		} else {
 			// otherwise, increment and return new score
-			int pos = team--;
+			int pos = --team;
 			this.scores[pos]++;
 			return this.scores[pos];
 		}

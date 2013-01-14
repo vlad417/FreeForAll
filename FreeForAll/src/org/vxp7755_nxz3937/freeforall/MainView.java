@@ -39,8 +39,10 @@ public class MainView extends View {
 
         @Override
         public void handleMessage(Message message) {
+        	Log.i("RefreshHandler", "Received");
         	if( _mode == RUNNING )
         	{
+        		Log.i("RefreshHandler", "Invalidating");
         		MainView.this.invalidate();
         	}
         }
@@ -63,6 +65,7 @@ public class MainView extends View {
 		_ctrlr = new ControllerThread( this );
 		_ctrlr.start();
 		
+		_mode = RUNNING;
 		setFocusable(true);
 	}
 	
@@ -71,6 +74,8 @@ public class MainView extends View {
 	{
 		PieceThread piece;
 		Board board = _ctrlr.getBoard();
+		
+		Log.i( "MainView", "Redrawing");
 		
 		// Redraw the board
 		for( int h=0; h < GRID_HEIGHT; h++ )
@@ -114,12 +119,7 @@ public class MainView extends View {
 		
 		// If board grid was touched, send a user spawn message
 		if( xAbs > left && xAbs < right && yAbs > top && yAbs < bot )
-		{
-			if( _ctrlr == null )
-				Log.i("OnTouchEvent", "Controller null" );
-			else if( _ctrlr.boardHandler == null)
-				Log.i("OnTouchEvent", "BoardHandler null" );
-			
+		{			
 			Message msg = _ctrlr.boardHandler.obtainMessage( _ctrlr.MSGTYPE_SPAWNER, _ctrlr.SPAWNTYPE_USER, 0 );
 			_ctrlr.boardHandler.sendMessage( msg );
 		}
