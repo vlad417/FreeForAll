@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import java.util.Random;
 //import org.vxp7755_nxz3937.freeforall.R;
 
 public class ControllerThread extends Thread {
@@ -19,6 +20,8 @@ public class ControllerThread extends Thread {
 	public final int DEFAULT_SPAWN_TIME = 6000;
 	public final int DEFAULT_MOVE_TIME = 1000;
 
+	private Random random = new Random();
+	
 	public Handler boardHandler;
 	private Board board;
 	private boolean paused;
@@ -90,6 +93,10 @@ public class ControllerThread extends Thread {
 			
 			private void handleSpawner( Message msg )
 			{
+				int[] dimensions = Board.getSize();
+				int boardWidth = dimensions[0];
+				int boardHeight = dimensions[1];
+				
 				if( msg.arg1 == SPAWNTYPE_SYS )
 				{
 					Log.i("BoardHandler", "System spawn request received");
@@ -104,19 +111,56 @@ public class ControllerThread extends Thread {
 				{
 					Log.i("BoardHandler", "User spawn request received");
 					// process top-left corner (team 1/red)
-					
+					spawnPiece(0,0,1);
 					// process top-right corner (team 2/green)
-					
+					spawnPiece((boardWidth-1),0,2);
 					// process bottom-right corner (team 3/ blue)
-					
+					spawnPiece(0,(boardHeight-1),3);
 					// process bottom-left corner (team 4/yellow)
-					
+					spawnPiece((boardWidth-1),(boardHeight-1),4);
 				}
 			}
 		};
-		
-		
+			
 		Looper.loop();
+	}
+	
+	/**
+	 * 
+	 * @param team	team number of new piece to spawn (1-4)
+	 * @param x		row to place new PiecesThread
+	 * @param y		column to place new PieceThread
+	 */
+	private void spawnPiece(int x, int y, int team)
+	{
+		// consume PieceThread if cell is occupied
+		if (board.getCell(x, y) != null) {
+			board.getCell(x, y).eaten();
+			board.givePoint(team);
+		}
+		
+		// generate new PieceThread
+		int pieceType = this.random.nextInt(4);
+		PieceThread newPiece;
+		switch(pieceType) {
+			case 0:		newPiece = new LeftUp_PieceThread(x, y, team);
+						break;
+			case 1:		newPiece = new LeftDown_PieceThread(x, y, team);
+						break;
+			case 2:		newPiece = new RightUp_PieceThread(x, y, team);
+						break;
+			default:	newPiece = new RightDown_PieceThread(x, y, team);
+						break;
+		}
+		
+		// set new piece
+		board.setCell(x, y, newPiece);
+		
+		// notify view of set new
+		
+		// tell PieceThread to run
+		newPiece.run();
+		
 	}
 	
 	/** Call the UI to redraw board */
