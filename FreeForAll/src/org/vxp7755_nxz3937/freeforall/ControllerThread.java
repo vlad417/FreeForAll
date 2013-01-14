@@ -21,7 +21,7 @@ public class ControllerThread extends Thread {
 	public final int DEFAULT_SPAWN_TIME = 6000;
 	public final int DEFAULT_MOVE_TIME = 1000;
 
-	private Random random = new Random();
+	private Random random = new Random(System.currentTimeMillis());
 	
 	public Handler boardHandler;
 	private Board board;
@@ -29,6 +29,7 @@ public class ControllerThread extends Thread {
 	private double spawnSpeedMultiplier;
 	private double moveSpeedMultiplier;
 	private MainView ui;
+	private SpawnerThread spawner;
 	
 	ControllerThread( MainView gui )
 	{
@@ -99,6 +100,7 @@ public class ControllerThread extends Thread {
 				updateMsg.obj = updateNewLoc;
 				uiHandler.sendMessage(updateMsg);
 			}
+	
 			
 			private void handleSpawner( Message msg )
 			{
@@ -125,19 +127,27 @@ public class ControllerThread extends Thread {
 						// process top-right corner (team 2/green)
 						spawnPiece((boardWidth-1),0,2);
 						// process bottom-right corner (team 3/ blue)
-						spawnPiece(0,(boardHeight-1),3);
+						spawnPiece((boardWidth-1),(boardHeight-1),3);
 						// process bottom-left corner (team 4/yellow)
-						spawnPiece((boardWidth-1),(boardHeight-1),4);
+						spawnPiece(0,(boardHeight-1),4);
 					}
 				}
 			}
 		};
 		
+		/*
 		Message spawnMsg = boardHandler.obtainMessage();
 		spawnMsg.what    = MSGTYPE_SPAWNER;
 		spawnMsg.arg1    = SPAWNTYPE_SYS;
 		
-		boardHandler.sendMessage( spawnMsg );
+		//boardHandler.sendMessage( spawnMsg );
+		 */
+		
+		/*
+		// start SpawnerThread to call for intervaled system spawns
+		this.spawner = new SpawnerThread(this);
+		spawner.run();
+		*/
 			
 		Log.i("Controller", "Looper starting");
 		Looper.loop();

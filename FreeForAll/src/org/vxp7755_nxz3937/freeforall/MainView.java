@@ -44,7 +44,7 @@ public class MainView extends View {
         	if( _mode == RUNNING )
         	{
         		Log.i("RefreshHandler", "Invalidating");
-        		MainView.this.invalidate();
+        		invalidate();
         	}
         }
     };

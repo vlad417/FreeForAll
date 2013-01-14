@@ -39,11 +39,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
 		
-		TextView team1 = (TextView) findViewById(R.id.team1_score);
-		team1.getAlpha();
+		super.onCreate(savedInstanceState);
+		
+		// set view to main.xml
+		setContentView(R.layout.main);
 		
 		// click-handlers for buttons
 		View pauseButton = findViewById(R.id.pause_button);
