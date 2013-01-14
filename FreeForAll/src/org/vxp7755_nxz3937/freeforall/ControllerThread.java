@@ -101,10 +101,10 @@ public class ControllerThread extends Thread {
 				{
 					Log.i("BoardHandler", "System spawn request received");
 					// generate 4 different coordinate sets
-					int cords[][] = new int[4][2];
+					int cords[][] = getUniqueCoordinates(4);
 					
 					for(int i = 0; i < 4; i++ ) {
-						
+						spawnPiece(cords[i][0], cords[i][1], (i+1));
 					}
 				}
 				else // SPAWNTYPE_USER
@@ -161,6 +161,13 @@ public class ControllerThread extends Thread {
 		// tell PieceThread to run
 		newPiece.run();
 		
+	}
+	
+	private int[][]getUniqueCoordinates( int numCoordinates )
+	{
+		
+		int coordinates[][] = new int[numCoordinates][2];
+		return coordinates;
 	}
 	
 	/** Call the UI to redraw board */
