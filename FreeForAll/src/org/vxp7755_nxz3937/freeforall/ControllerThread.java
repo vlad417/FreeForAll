@@ -119,15 +119,17 @@ public class ControllerThread extends Thread {
 				}
 				else // SPAWNTYPE_USER
 				{
-					Log.i("BoardHandler", "User spawn request received");
-					// process top-left corner (team 1/red)
-					spawnPiece(0,0,1);
-					// process top-right corner (team 2/green)
-					spawnPiece((boardWidth-1),0,2);
-					// process bottom-right corner (team 3/ blue)
-					spawnPiece(0,(boardHeight-1),3);
-					// process bottom-left corner (team 4/yellow)
-					spawnPiece((boardWidth-1),(boardHeight-1),4);
+					if (! paused) {
+						Log.i("BoardHandler", "User spawn request received");
+						// process top-left corner (team 1/red)
+						spawnPiece(0,0,1);
+						// process top-right corner (team 2/green)
+						spawnPiece((boardWidth-1),0,2);
+						// process bottom-right corner (team 3/ blue)
+						spawnPiece(0,(boardHeight-1),3);
+						// process bottom-left corner (team 4/yellow)
+						spawnPiece((boardWidth-1),(boardHeight-1),4);
+					}
 				}
 			}
 		};
