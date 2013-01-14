@@ -49,8 +49,7 @@ public class ControllerThread extends Thread {
 			public void handleMessage( Message msg )
 			{
 				Log.i("BoardHandler", "Message Received");
-				if( !paused )
-				{
+				if( !paused ) {
 					Log.i("BoardHandler", String.format("What: %d :: Arg1: %d", msg.what, msg.arg1));
 					if( msg.what == MSGTYPE_MOVER )
 					{
@@ -93,7 +92,7 @@ public class ControllerThread extends Thread {
 				UpdateData updateOldLoc = new UpdateData( mover.me.getX(), mover.me.getY(), 0, board.getScores() );
 				UpdateData updateNewLoc = new UpdateData( mover.x, mover.y, 0, board.getScores() );
 				
-				Log.i("moveHandler", "Sending UI a message");
+				Log.i("handleMover", "Sending UI a message");
 				
 				updateMsg.obj = updateOldLoc;
 				uiHandler.sendMessage(updateMsg);
@@ -109,18 +108,18 @@ public class ControllerThread extends Thread {
 				
 				if( msg.arg1 == SPAWNTYPE_SYS )
 				{
-					Log.i("BoardHandler", "System spawn request received");
+					Log.i("handleSpawner", "System spawn request received");
 					// generate 4 different coordinate sets
-					int cords[][] = getUniqueCoordinates(4);
+					int cords[][] = getUniqueCoordinates(ui.NUM_TEAMS);
 					
-					for(int i = 0; i < 4; i++ ) {
+					for(int i = 0; i < ui.NUM_TEAMS; i++ ) {
 						spawnPiece(cords[i][0], cords[i][1], (i+1));
 					}
 				}
 				else // SPAWNTYPE_USER
 				{
 					if (! paused) {
-						Log.i("BoardHandler", "User spawn request received");
+						Log.i("handleSpawner", "User spawn request received");
 						// process top-left corner (team 1/red)
 						spawnPiece(0,0,1);
 						// process top-right corner (team 2/green)
@@ -188,7 +187,7 @@ public class ControllerThread extends Thread {
 		
 		UpdateData updateNewLoc = new UpdateData( x, y, 0, board.getScores() );
 		
-		Log.i("moveHandler", "Sending UI a message");
+		Log.i("spawnPiece", "Sending UI a message");
 		
 		updateMsg.obj = updateNewLoc;
 		uiHandler.sendMessage(updateMsg);

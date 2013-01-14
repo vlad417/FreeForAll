@@ -22,7 +22,7 @@ public class MainView extends View {
 	private final int CELL_HEIGHT = 40;
 	public final int GRID_WIDTH  = 10;
 	public final int GRID_HEIGHT = 10;
-	private final int NUM_TEAMS   = 4;
+	public final int NUM_TEAMS   = 4;
 	
 	public static final int PAUSE = 0;
 	public static final int RUNNING = 1;
