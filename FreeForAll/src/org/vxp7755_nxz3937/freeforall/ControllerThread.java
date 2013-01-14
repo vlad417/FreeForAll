@@ -226,7 +226,14 @@ public class ControllerThread extends Thread {
 			
 		}
 		
-		return (int[][]) coordinates.toArray();
+		// convert coordinates to primative array
+		int[][] result = new int[coordinates.size()][2];
+		for(int i = 0; i < coordinates.size(); i++) {
+			result[i][0] = coordinates.get(i)[0];
+			result[i][0] = coordinates.get(i)[1];
+		}
+		
+		return result;
 	}
 	
 	/** Call the UI to redraw board */
