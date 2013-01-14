@@ -96,9 +96,9 @@ public class ControllerThread extends Thread {
 				Log.i("moveHandler", "Sending UI a message");
 				
 				updateMsg.obj = updateOldLoc;
-				uiHandler.sendMessage(updateMsg);
+				//uiHandler.sendMessage(updateMsg);
 				updateMsg.obj = updateNewLoc;
-				uiHandler.sendMessage(updateMsg);
+				//uiHandler.sendMessage(updateMsg);
 			}
 			
 			private void handleSpawner( Message msg )
@@ -138,7 +138,7 @@ public class ControllerThread extends Thread {
 		spawnMsg.what    = MSGTYPE_SPAWNER;
 		spawnMsg.arg1    = SPAWNTYPE_SYS;
 		
-		boardHandler.sendMessage( spawnMsg );
+		//boardHandler.sendMessage( spawnMsg );
 			
 		Log.i("Controller", "Looper starting");
 		Looper.loop();
@@ -188,7 +188,7 @@ public class ControllerThread extends Thread {
 		Log.i("moveHandler", "Sending UI a message");
 		
 		updateMsg.obj = updateNewLoc;
-		uiHandler.sendMessage(updateMsg);
+		//uiHandler.sendMessage(updateMsg);
 		
 		// tell PieceThread to run
 		newPiece.start();

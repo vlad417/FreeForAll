@@ -64,10 +64,16 @@ public class MainView extends View {
 		_cellColors[4].setColor(getResources().getColor(R.color.team4));
         
 		_ctrlr = new ControllerThread( this );
-		_ctrlr.start();
+		//_ctrlr.start();
 		
 		_mode = RUNNING;
 		setFocusable(true);
+	}
+	
+	@Override
+	protected void onFinishInflate()
+	{
+		_ctrlr.start();
 	}
 	
 	@Override
