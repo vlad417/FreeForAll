@@ -26,13 +26,15 @@ public class ControllerThread extends Thread {
 	public Handler boardHandler;
 	private Board board;
 	private boolean paused;
-	private double speedMultiplier;
+	private double spawnSpeedMultiplier;
+	private double moveSpeedMultiplier;
 	private MainView ui;
 	
 	ControllerThread( MainView gui )
 	{
 		paused          = false;
-		speedMultiplier = 1.0;
+		spawnSpeedMultiplier = 1.0;
+		moveSpeedMultiplier = 1.0;
 		ui              = gui;
 		board           = new Board( ui.GRID_WIDTH, ui.GRID_HEIGHT );
 	}
@@ -216,28 +218,54 @@ public class ControllerThread extends Thread {
 	
 	
 	/**
-	 * Decrease delay multiplier
+	 * Decrease move delay multiplier
 	 */
-	public void speedUp()
+	public void moveSpeedUp()
 	{
-		if (this.speedMultiplier > 0.25) {
-			this.speedMultiplier -= 0.25;
+		if (this.moveSpeedMultiplier > 0.25) {
+			this.moveSpeedMultiplier -= 0.25;
 		}
-		Log.i("SpeedUp", String.format("SpeedMultiplier = %f",
-											this.speedMultiplier));
+		Log.i("moveSpeedUp", String.format("moveSpeedMultiplier = %f",
+											this.moveSpeedMultiplier));
 	}
 	
 	
 	/**
-	 * Increase delay multiplier
+	 * Increase move delay multiplier
 	 */
-	public void slowDown()
+	public void moveSlowDown()
 	{
-		if (this.speedMultiplier < 2.0 ) {
-			this.speedMultiplier += 0.25;
+		if (this.moveSpeedMultiplier < 2.0 ) {
+			this.moveSpeedMultiplier += 0.25;
 		}
-		Log.i("SlowDown", String.format("SpeedMultiplier = %f",
-				this.speedMultiplier));
+		Log.i("moveSlowDown", String.format("moveSpeedMultiplier = %f",
+				this.moveSpeedMultiplier));
+	}
+	
+	
+	/**
+	 * Decrease spawn delay multiplier
+	 */
+	public void spawnSpeedUp()
+	{
+		if (this.spawnSpeedMultiplier > 0.25) {
+			this.spawnSpeedMultiplier -= 0.25;
+		}
+		Log.i("spawnSpeedUp", String.format("spawnSpeedMultiplier = %f",
+											this.spawnSpeedMultiplier));
+	}
+	
+	
+	/**
+	 * Increase spawn delay multiplier
+	 */
+	public void spawnSlowDown()
+	{
+		if (this.spawnSpeedMultiplier < 2.0 ) {
+			this.spawnSpeedMultiplier += 0.25;
+		}
+		Log.i("spawnSlowDown", String.format("spawnSpeedMultiplier = %f",
+				this.spawnSpeedMultiplier));
 	}
 	
 	/**
@@ -262,7 +290,7 @@ public class ControllerThread extends Thread {
 	 */
 	public int getMoveDelay()
 	{
-		return (int) (this.speedMultiplier * this.DEFAULT_MOVE_TIME);
+		return (int) (this.moveSpeedMultiplier * this.DEFAULT_MOVE_TIME);
 	}
 	
 	
@@ -272,7 +300,7 @@ public class ControllerThread extends Thread {
 	 * @return delay in ms, in between system-driven PieceThread spawns
 	 */
 	public int getSpawnDelay() {
-		return this.DEFAULT_SPAWN_TIME;
+		return (int) (this.spawnSpeedMultiplier * this.DEFAULT_SPAWN_TIME);
 	}
 	
 	
