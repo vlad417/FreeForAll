@@ -16,6 +16,9 @@ public class RightUp_PieceThread extends PieceThread {
 
 		_x = _x + xMoves[move];
 		_y = _y + yMoves[move];
+		
+		// Loop around board if needed
+		ensureMoveOnBoard();
 	}
 
 }

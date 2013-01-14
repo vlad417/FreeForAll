@@ -112,4 +112,14 @@ public class Board {
 		return this.scores;
 	}
 	
+	/**
+	 * Retrieve an array containing the board's width and height in cells
+	 * 
+	 * @return 2 element array containing height and width of board
+	 */
+	public int[] getSize()
+	{
+		int size[] = {boardHeight, boardWidth};
+		return size;
+	}
 }
