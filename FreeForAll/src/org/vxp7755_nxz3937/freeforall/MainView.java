@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -134,5 +135,10 @@ public class MainView extends View {
 				(x * CELL_WIDTH) + (CELL_WIDTH -1) + x,
 				(y * CELL_HEIGHT) + (CELL_HEIGHT -1) + y,
 				_cellColors[team]);
+	}
+	
+	public void quitLooper()
+	{
+		Looper.myLooper().quit();
 	}
 }

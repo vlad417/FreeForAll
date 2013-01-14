@@ -19,10 +19,10 @@ public class SpawnerThread extends Thread {
 		spawnMsg.what    = _ctrlr.MSGTYPE_SPAWNER;
 		spawnMsg.arg1    = _ctrlr.SPAWNTYPE_SYS;
 		
-		_ctrlr.boardHandler.sendMessage( spawnMsg );
-		
 		while( !_ctrlr.isPaused() )
 		{
+			_ctrlr.boardHandler.sendMessage( spawnMsg );
+			
 			try
 			{
 				sleep( _ctrlr.getSpawnDelay() );

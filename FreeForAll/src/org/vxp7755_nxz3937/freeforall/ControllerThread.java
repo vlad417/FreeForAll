@@ -87,7 +87,7 @@ public class ControllerThread extends Thread {
 				board.setCell( mover.x, mover.y, mover.me );
 				
 				// Send messages to UI to update the cell moved from and moved to
-				Handler uiHandler = ui.getHandler();
+				Handler uiHandler = ui._redrawHandler;
 				Message updateMsg = uiHandler.obtainMessage();
 				
 				UpdateData updateOldLoc = new UpdateData( mover.me.getX(), mover.me.getY(), 0, board.getScores() );
@@ -131,6 +131,12 @@ public class ControllerThread extends Thread {
 				}
 			}
 		};
+		
+		Message spawnMsg = boardHandler.obtainMessage();
+		spawnMsg.what    = MSGTYPE_SPAWNER;
+		spawnMsg.arg1    = SPAWNTYPE_SYS;
+		
+		boardHandler.sendMessage( spawnMsg );
 			
 		Log.i("Controller", "Looper starting");
 		Looper.loop();
@@ -172,7 +178,7 @@ public class ControllerThread extends Thread {
 		board.setCell(x, y, newPiece);
 		
 		// Send messages to UI to update the cell
-		Handler uiHandler = ui.getHandler();
+		Handler uiHandler = ui._redrawHandler;
 		Message updateMsg = uiHandler.obtainMessage();
 		
 		UpdateData updateNewLoc = new UpdateData( x, y, 0, board.getScores() );
