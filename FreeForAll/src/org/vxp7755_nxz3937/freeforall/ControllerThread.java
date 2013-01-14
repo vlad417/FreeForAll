@@ -111,14 +111,14 @@ public class ControllerThread extends Thread {
 				if( msg.arg1 == SPAWNTYPE_SYS )
 				{
 					Log.i("handleSpawner", "System spawn request received");
-					// generate 4 different coordinate sets
+					// generate spawn coordinates for eacchteam's piece
 					int cords[][] = getUniqueCoordinates(ui.NUM_TEAMS);
 					
 					for(int i = 0; i < ui.NUM_TEAMS; i++ ) {
 						spawnPiece(cords[i][0], cords[i][1], (i+1));
 					}
 				}
-				else // SPAWNTYPE_USER
+				else if ( msg.arg1 == SPAWNTYPE_USER ) // SPAWNTYPE_USER
 				{
 					if (! paused) {
 						Log.i("handleSpawner", "User spawn request received");
@@ -135,19 +135,11 @@ public class ControllerThread extends Thread {
 			}
 		};
 		
-		/*
-		Message spawnMsg = boardHandler.obtainMessage();
-		spawnMsg.what    = MSGTYPE_SPAWNER;
-		spawnMsg.arg1    = SPAWNTYPE_SYS;
 		
-		//boardHandler.sendMessage( spawnMsg );
-		 */
-		
-		/*
 		// start SpawnerThread to call for intervaled system spawns
-		this.spawner = new SpawnerThread(this);
-		spawner.run();
-		*/
+		//this.spawner = new SpawnerThread(this);
+		//spawner.start();
+		
 			
 		Log.i("Controller", "Looper starting");
 		Looper.loop();
@@ -172,19 +164,19 @@ public class ControllerThread extends Thread {
 		PieceThread newPiece;
 		switch(pieceType) {
 			case 0:		newPiece = new LeftUp_PieceThread(x, y, team, this );
-						Log.i( "Controller", "Spawned LeftUp");
+						Log.i( "Controller.spawnPiece", String.format("Spawned LeftUp @ %d,%d for Team %d",x,y,team));
 						break;
 			case 1:		newPiece = new LeftDown_PieceThread(x, y, team, this );
-						Log.i( "Controller", "Spawned LeftDown");
+						Log.i( "Controller.spawnPiece", String.format("Spawned LeftDown @ %d,%d for Team %d",x,y,team));
 						break;
 			case 2:		newPiece = new RightUp_PieceThread(x, y, team, this );
-						Log.i( "Controller", "Spawned RightUp");
+						Log.i( "Controller.spawnPiece", String.format("Spawned RightUp @ %d,%d for Team %d",x,y,team));
 						break;
 			case 3:		newPiece = new RightDown_PieceThread(x, y, team, this);
-						Log.i( "Controller", "Spawned RightDown");
+						Log.i( "Controller.spawnPiece", String.format("Spawned RightDown @ %d,%d for Team %d",x,y,team));
 						break;
 			default:	newPiece = new Spiral_PieceThread(x, y, team, this);
-						Log.i( "Controller", "Spawned Spiral");
+						Log.i( "Controller.spawnPiece", String.format("Spawned Spiral @ %d,%d for Team %d",x,y,team));
 						break;
 		}
 		
