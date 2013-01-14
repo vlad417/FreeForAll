@@ -159,7 +159,7 @@ public class ControllerThread extends Thread {
 		}
 		
 		// generate new PieceThread
-		int pieceType = this.random.nextInt(4);
+		int pieceType = this.random.nextInt(5);
 		PieceThread newPiece;
 		switch(pieceType) {
 			case 0:		newPiece = new LeftUp_PieceThread(x, y, team, this );
@@ -171,8 +171,11 @@ public class ControllerThread extends Thread {
 			case 2:		newPiece = new RightUp_PieceThread(x, y, team, this );
 						Log.i( "Controller", "Spawned RightUp");
 						break;
-			default:	newPiece = new RightDown_PieceThread(x, y, team, this);
+			case 3:		newPiece = new RightDown_PieceThread(x, y, team, this);
 						Log.i( "Controller", "Spawned RightDown");
+						break;
+			default:	newPiece = new Spiral_PieceThread(x, y, team, this);
+						Log.i( "Controller", "Spawned Spiral");
 						break;
 		}
 		
@@ -195,6 +198,13 @@ public class ControllerThread extends Thread {
 		
 	}
 	
+	
+	/**
+	 * Get an array of board coordinates
+	 * 
+	 * @param numCoordinates the number of unique coordinates to generate
+	 * @return a 2D array containing coordinates
+	 */
 	private int[][]getUniqueCoordinates( int numCoordinates )
 	{
 		int boardSize[] = board.getSize();
