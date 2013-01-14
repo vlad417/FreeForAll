@@ -93,7 +93,7 @@ public class ControllerThread extends Thread {
 			
 			private void handleSpawner( Message msg )
 			{
-				int[] dimensions = Board.getSize();
+				int[] dimensions = board.getSize();
 				int boardWidth = dimensions[0];
 				int boardHeight = dimensions[1];
 				
