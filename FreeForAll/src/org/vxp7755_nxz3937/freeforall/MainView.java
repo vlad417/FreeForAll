@@ -79,13 +79,18 @@ public class MainView extends View {
 		setFocusable(true);
 	}
 	
+	/*
 	@Override
-	protected void onFinishInflate()
+	protected void onWindowVisibilityChanged( int visibility )
 	{
-		Log.i("MainView", "View is starting controller");
-		_ctrlr.start();
-		invalidate();
+		if( visibility == VISIBLE )
+		{
+			Log.i("MainView", "View is starting controller");
+			_ctrlr.start();
+			invalidate();
+		}
 	}
+	*/
 	
 	@Override
 	protected void onDraw( Canvas canvas )
@@ -150,4 +155,13 @@ public class MainView extends View {
 	 * Set drawing to true.  Used if a message to redraw the board has been sent
 	 */
 	public void setDrawing() { _drawing = true; }
+	
+	/**
+	 * Start the controller.  Should be called once the screen is unlocked
+	 */
+	public void startController() { 
+		Log.i("MainView", "View is starting controller");
+		_ctrlr.start();
+		invalidate();
+	}
 }

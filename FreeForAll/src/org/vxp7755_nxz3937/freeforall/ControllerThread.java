@@ -148,8 +148,8 @@ public class ControllerThread extends Thread {
 		
 		
 		// start SpawnerThread to call for intervaled system spawns
-		//this.spawner = new SpawnerThread(this);
-		//spawner.start();
+		this.spawner = new SpawnerThread(this);
+		spawner.start();
 		
 			
 		Log.i("Controller", "Looper starting");

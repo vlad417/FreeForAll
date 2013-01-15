@@ -92,6 +92,7 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onResume() {
     	super.onResume();
     	Log.i("MainActivity","Gaining focus");
+    	((MainView) findViewById(R.id.mainView)).startController();
     }
     
     /** Called as part of the activity lifecycle when an activity is going into the background, but has not (yet) been killed. */
