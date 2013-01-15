@@ -66,19 +66,32 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	/** Called when a click event occurs */
 	public void onClick(View v) {
+		double speed;
 		switch (v.getId()) {
 			//move_speedup action
-			case R.id.move_speedup_button:	_ctrlr.moveSpeedUp();
-											break;
-			//move_slowdown action
-			case R.id.move_slowdown_button:	_ctrlr.moveSlowDown();
-											break;
+			case R.id.move_speedup_button:	
+				_ctrlr.moveSpeedUp();
+				speed = ((MainView) findViewById(R.id.mainView)).getMoveSpeed();
+				((TextView) findViewById(R.id.move_value)).setText(String.format("%d%%", (int)(speed*100)));
+				break;
+				//move_slowdown action
+			case R.id.move_slowdown_button:	
+				_ctrlr.moveSlowDown();
+				speed = ((MainView) findViewById(R.id.mainView)).getMoveSpeed();
+				((TextView) findViewById(R.id.move_value)).setText(String.format("%d%%", (int)(speed*100)));
+				break;
 			//spawn_speedup action
-			case R.id.spawn_speedup_button:	_ctrlr.spawnSpeedUp();
-											break;
+			case R.id.spawn_speedup_button:	
+				_ctrlr.spawnSpeedUp();
+				speed = ((MainView) findViewById(R.id.mainView)).getSpawnSpeed();
+				((TextView) findViewById(R.id.move_value)).setText(String.format("%d%%", (int)(speed*100)));
+				break;
 			//spawn_slowdown action
-			case R.id.spawn_slowdown_button: _ctrlr.spawnSlowDown();
-											 break;
+			case R.id.spawn_slowdown_button: 
+				_ctrlr.spawnSlowDown();
+				speed = ((MainView) findViewById(R.id.mainView)).getSpawnSpeed();
+				((TextView) findViewById(R.id.move_value)).setText(String.format("%d%%", (int)(speed*100)));
+				break;
 			// pause action
 			case R.id.pause_button:		CheckBox box = (CheckBox) findViewById(
 											R.id.pause_button);
