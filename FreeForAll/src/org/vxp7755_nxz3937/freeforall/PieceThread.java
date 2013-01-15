@@ -90,8 +90,9 @@ public abstract class PieceThread extends Thread {
 		while( _alive )
 		{
 			// Enter PieceQ, this should be blocking
-			if (!_ctrlr.isPieceQueueEmpty())
-				_ctrlr.enqueueMe(this);
+			_ctrlr.enqueueMe(this);
+			
+			Log.i("PieceThread", String.format("Piece %d has left the pieceQ", _id));
 			
 			while (_ctrlr.isDrawing());
 			

@@ -34,7 +34,6 @@ public class ControllerThread extends Thread {
 	private LinkedBlockingQueue<PieceThread> pieceQ = new LinkedBlockingQueue<PieceThread>();
 	
 	private int lastPieceIdUsed = 0;
-	private boolean moving = false;
 	
 	ControllerThread( MainView gui )
 	{
@@ -105,9 +104,14 @@ public class ControllerThread extends Thread {
 					}
 				});
 				
-				Log.i("handleMover", String.format("Piece %d releasing move lock", mover.me.getID()));
-				//moving = false;
-				pieceQ.poll();
+				// spin while paused
+				while (isPaused());
+				try {
+					pieceQ.take();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 	
 			
@@ -369,7 +373,7 @@ public class ControllerThread extends Thread {
 	 * 
 	 * @return true if sim paused, otherwise false
 	 */
-	public boolean isPaused() {
+	public synchronized boolean isPaused() {
 		return this.paused;
 	}
 	
@@ -379,28 +383,22 @@ public class ControllerThread extends Thread {
 	 * 
 	 * @return true if ui is in the middle of drawing
 	 */
-	public boolean isDrawing() {
+	public synchronized boolean isDrawing() {
 		return ui.isDrawing();
 	}
 	
 	
-	/**
-	 * Mark that the controller is processing a move currently
-	 */
-	public void setMoving() {
-		moving = true;
+	public synchronized void enqueueMe(PieceThread piece) {
+		try {
+			Log.i("Controller", String.format("Piece %d entering pieceQ", piece._id));
+			pieceQ.put(piece);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	
-	public boolean isMoving() {
-		return moving;
-	}
-	
-	public void enqueueMe(PieceThread piece) {
-		pieceQ.add(piece);
-	}
-	
-	public boolean isPieceQueueEmpty() {
+	public synchronized boolean isPieceQueueEmpty() {
 		if (pieceQ.size() == 0) 
 			return true;
 		else
