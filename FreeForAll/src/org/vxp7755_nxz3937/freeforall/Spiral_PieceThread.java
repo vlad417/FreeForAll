@@ -14,9 +14,9 @@ public class Spiral_PieceThread extends PieceThread {
 	int movesToMakeInDirection = 1;
 	int turns = 0;
 
-	Spiral_PieceThread( int x, int y, int team, ControllerThread ctrlr )
+	Spiral_PieceThread( int id, int x, int y, int team, ControllerThread ctrlr )
 	{
-		super( x, y, team, ctrlr );
+		super( id, x, y, team, ctrlr );
 	}
 	
 	@Override

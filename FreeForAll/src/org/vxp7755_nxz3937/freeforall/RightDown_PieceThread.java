@@ -6,9 +6,9 @@ public class RightDown_PieceThread extends PieceThread {
 	int yMoves[] = {0, 1};
 	int move     = 0;
 
-	RightDown_PieceThread( int x, int y, int team, ControllerThread ctrlr )
+	RightDown_PieceThread( int id, int x, int y, int team, ControllerThread ctrlr )
 	{
-		super( x, y, team, ctrlr );
+		super( id, x, y, team, ctrlr );
 	}
 	@Override
 	protected void getNextMove() {

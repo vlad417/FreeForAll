@@ -6,9 +6,9 @@ public class LeftUp_PieceThread extends PieceThread {
 	int yMoves[] = {0, -1};
 	int move     = 0;
 
-	LeftUp_PieceThread( int x, int y, int team, ControllerThread ctrlr )
+	LeftUp_PieceThread( int id, int x, int y, int team, ControllerThread ctrlr )
 	{
-		super( x, y, team, ctrlr );
+		super( id, x, y, team, ctrlr );
 	}
 	@Override
 	protected void getNextMove() {

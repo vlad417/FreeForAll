@@ -4,14 +4,16 @@ import android.os.Message;
 import android.util.Log;
 
 public abstract class PieceThread extends Thread {
+	protected int _id;
 	protected int _x;
 	protected int _y;
 	protected int _team;
 	private boolean _alive;
 	private ControllerThread _ctrlr;
 	
-	PieceThread( int x, int y, int team, ControllerThread ctrlr )
+	PieceThread( int id, int x, int y, int team, ControllerThread ctrlr )
 	{
+		this._id    = id;
 		this._x     = x;
 		this._y     = y;
 		this._team  = team;
@@ -75,13 +77,26 @@ public abstract class PieceThread extends Thread {
 			_ctrlr.boardHandler.sendMessage( boardMsg );
 			
 			try {
+				Log.i("PieceThread", String.format("Piece %d sleeping", _id));
 				sleep( _ctrlr.getMoveDelay() );
+				Log.i("PieceThread", String.format("Piece %d waking up", _id));
 			} catch (InterruptedException e) {
 				Log.e( "PieceThread", "sleep interrupted" );
 				e.printStackTrace();
 			}
+			
+			while( _ctrlr.isDrawing() );
 		}
+		
+		Log.i("PieceThread", String.format("Piece %d dying", _id));
 	}
+	
+	/**
+	 * Retrieve the id of this PieceThread
+	 * 
+	 * @return the id
+	 */
+	public int getID(){ return _id; }
 	
 	/**
 	 * Perform a specified move (only modifies this piece's internal position)

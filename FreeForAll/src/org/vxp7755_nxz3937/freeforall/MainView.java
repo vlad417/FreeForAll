@@ -32,6 +32,7 @@ public class MainView extends View {
 	private Board _board;
 	private Paint[] _cellColors;
 	public ControllerThread _ctrlr;
+	private boolean _drawing;
 	
 	
 	public RefreshHandler _redrawHandler = new RefreshHandler();
@@ -44,7 +45,7 @@ public class MainView extends View {
         	if( _mode == RUNNING )
         	{
         		Log.i("RefreshHandler", "Invalidating");
-        		MainView.this.invalidate();
+        		invalidate();
         	}
         }
     };
@@ -66,6 +67,14 @@ public class MainView extends View {
 		_ctrlr = new ControllerThread( this );
 		//_ctrlr.start();
 		
+		this.setOnClickListener( new OnClickListener(){
+			public void onClick( View v )
+			{
+				Message msg = _ctrlr.boardHandler.obtainMessage( _ctrlr.MSGTYPE_SPAWNER, _ctrlr.SPAWNTYPE_USER, 0 );
+				_ctrlr.boardHandler.sendMessage( msg );
+			}
+		} );
+		
 		_mode = RUNNING;
 		setFocusable(true);
 	}
@@ -73,7 +82,9 @@ public class MainView extends View {
 	@Override
 	protected void onFinishInflate()
 	{
+		Log.i("MainView", "View is starting controller");
 		_ctrlr.start();
+		invalidate();
 	}
 	
 	@Override
@@ -92,7 +103,10 @@ public class MainView extends View {
         		if( piece != null )
         			paintCell( canvas, w, h, piece.getTeam() );
         		else
+        		{
+        			Log.i("OnDraw", String.format("(%d,%d, args) is null", w,h));
         			paintCell( canvas, w, h, 0 );
+        		}
         	}
 		
 		// Update scores
@@ -110,27 +124,8 @@ public class MainView extends View {
 			team4.setText( scores[3] );
 		}
 		
-	}
-	
-	/** Implement this method to handle touch screen motion events and toggle a user spawn. */
-	@Override
-	public boolean onTouchEvent(MotionEvent event)
-	{
-		float top   = (float) this.getTop();
-		float bot   = (float) this.getBottom();
-		float left  = (float) this.getLeft();
-		float right = (float) this.getRight();
+		_drawing = false;
 		
-		float xAbs = event.getX();
-		float yAbs = event.getY();
-		
-		// If board grid was touched, send a user spawn message
-		if( xAbs > left && xAbs < right && yAbs > top && yAbs < bot )
-		{			
-			Message msg = _ctrlr.boardHandler.obtainMessage( _ctrlr.MSGTYPE_SPAWNER, _ctrlr.SPAWNTYPE_USER, 0 );
-			_ctrlr.boardHandler.sendMessage( msg );
-		}
-		return true;
 	}
 
 	public void paintCell( Canvas canvas, int x, int y, int team )
@@ -147,4 +142,12 @@ public class MainView extends View {
 	{
 		Looper.myLooper().quit();
 	}
+	
+	/** Returns true if the board is in the middle of being drawn */
+	public boolean isDrawing() { return _drawing; }
+	
+	/**
+	 * Set drawing to true.  Used if a message to redraw the board has been sent
+	 */
+	public void setDrawing() { _drawing = true; }
 }

@@ -30,6 +30,8 @@ public class ControllerThread extends Thread {
 	private double moveSpeedMultiplier;
 	private MainView ui;
 	
+	private int lastPieceIdUsed = 0;
+	
 	ControllerThread( MainView gui )
 	{
 		paused          = false;
@@ -50,7 +52,6 @@ public class ControllerThread extends Thread {
 			{
 				Log.i("BoardHandler", "Message Received");
 				if( !paused ) {
-					Log.i("BoardHandler", String.format("What: %d :: Arg1: %d", msg.what, msg.arg1));
 					if( msg.what == MSGTYPE_MOVER )
 					{
 						handleMover( (MoveObject)msg.obj );
@@ -64,6 +65,9 @@ public class ControllerThread extends Thread {
 						Log.i("BoardHandler", "Quit request received");
 						this.getLooper().quit();
 					}
+					
+					// Spin while the board is being redrawn
+					while( isDrawing() );
 				}
 			}
 			
@@ -72,11 +76,11 @@ public class ControllerThread extends Thread {
 			{
 				PieceThread cell = board.getCell( mover.x, mover.y );
 				
-				Log.i("handleMover", "Moving...");
+				Log.i("handleMover", String.format("Piece %d moving...", mover.me.getID()));
 				
 				if( cell != null ) // If cell occupied
 				{
-					Log.i("handleMover", "Eating...");
+					Log.i("handleMover", String.format("Piece %d eating %d", mover.me.getID(), cell.getID()));
 					cell.eaten();
 					board.givePoint( cell.getTeam() );
 				}
@@ -98,6 +102,13 @@ public class ControllerThread extends Thread {
 				//uiHandler.sendMessage(updateMsg);
 				updateMsg.obj = updateNewLoc;
 				//uiHandler.sendMessage(updateMsg);
+				
+				ui.setDrawing();
+				ui.post( new Runnable(){
+					public void run(){
+						ui.invalidate();
+					}
+				});
 			}
 			
 			private void handleSpawner( Message msg )
@@ -137,7 +148,7 @@ public class ControllerThread extends Thread {
 		spawnMsg.what    = MSGTYPE_SPAWNER;
 		spawnMsg.arg1    = SPAWNTYPE_SYS;
 		
-		//boardHandler.sendMessage( spawnMsg );
+		boardHandler.sendMessage( spawnMsg );
 			
 		Log.i("Controller", "Looper starting");
 		Looper.loop();
@@ -161,19 +172,19 @@ public class ControllerThread extends Thread {
 		int pieceType = this.random.nextInt(5);
 		PieceThread newPiece;
 		switch(pieceType) {
-			case 0:		newPiece = new LeftUp_PieceThread(x, y, team, this );
+			case 0:		newPiece = new LeftUp_PieceThread( lastPieceIdUsed++, x, y, team, this );
 						Log.i( "Controller", "Spawned LeftUp");
 						break;
-			case 1:		newPiece = new LeftDown_PieceThread(x, y, team, this );
+			case 1:		newPiece = new LeftDown_PieceThread( lastPieceIdUsed++, x, y, team, this );
 						Log.i( "Controller", "Spawned LeftDown");
 						break;
-			case 2:		newPiece = new RightUp_PieceThread(x, y, team, this );
+			case 2:		newPiece = new RightUp_PieceThread( lastPieceIdUsed++, x, y, team, this );
 						Log.i( "Controller", "Spawned RightUp");
 						break;
-			case 3:		newPiece = new RightDown_PieceThread(x, y, team, this);
+			case 3:		newPiece = new RightDown_PieceThread( lastPieceIdUsed++, x, y, team, this);
 						Log.i( "Controller", "Spawned RightDown");
 						break;
-			default:	newPiece = new Spiral_PieceThread(x, y, team, this);
+			default:	newPiece = new Spiral_PieceThread( lastPieceIdUsed++, x, y, team, this);
 						Log.i( "Controller", "Spawned Spiral");
 						break;
 		}
@@ -191,6 +202,12 @@ public class ControllerThread extends Thread {
 		
 		updateMsg.obj = updateNewLoc;
 		//uiHandler.sendMessage(updateMsg);
+		ui.setDrawing();
+		ui.post( new Runnable(){
+			public void run(){
+				ui.invalidate();
+			}
+		});
 		
 		// tell PieceThread to run
 		newPiece.start();
@@ -349,5 +366,14 @@ public class ControllerThread extends Thread {
 	 */
 	public boolean isPaused() {
 		return this.paused;
+	}
+	
+	/**
+	 * Check if UI is drawing
+	 * 
+	 * @return true if ui is in the middle of drawing
+	 */
+	public boolean isDrawing() {
+		return ui.isDrawing();
 	}
 }

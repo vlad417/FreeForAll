@@ -7,9 +7,9 @@ public class LeftDown_PieceThread extends PieceThread {
 	int move     = 0;
 
 
-	LeftDown_PieceThread( int x, int y, int team, ControllerThread ctrlr )
+	LeftDown_PieceThread( int id, int x, int y, int team, ControllerThread ctrlr )
 	{
-		super( x, y, team, ctrlr );
+		super( id, x, y, team, ctrlr );
 	}
 	
 	@Override
