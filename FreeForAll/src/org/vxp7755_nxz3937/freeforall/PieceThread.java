@@ -93,6 +93,9 @@ public abstract class PieceThread extends Thread {
 			// Spin if the board is in the middle of drawing or another piece is moving
 			while( _ctrlr.isDrawing() || _ctrlr.isMoving() );
 			
+			if( !_alive ) // Double check we weren't killed while being locked
+				break;
+			
 			Log.i("PieceThread", String.format("Piece %d is move locking", _id));
 			_ctrlr.setMoving();
 			getNextMove();

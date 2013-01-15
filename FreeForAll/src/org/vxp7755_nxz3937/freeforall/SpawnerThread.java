@@ -15,13 +15,13 @@ public class SpawnerThread extends Thread {
 	@Override
 	public void run()
 	{
-		Message spawnMsg = _ctrlr.boardHandler.obtainMessage();
-		spawnMsg.what    = _ctrlr.MSGTYPE_SPAWNER;
-		spawnMsg.arg1    = _ctrlr.SPAWNTYPE_SYS;
-		
+		Message spawnMsg;
 		while( true )
 		{
 			if (! _ctrlr.isPaused()) {
+				spawnMsg      = _ctrlr.boardHandler.obtainMessage();
+				spawnMsg.what = _ctrlr.MSGTYPE_SPAWNER;
+				spawnMsg.arg1 = _ctrlr.SPAWNTYPE_SYS;
 				_ctrlr.boardHandler.sendMessage( spawnMsg );
 			}
 			
