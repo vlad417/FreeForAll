@@ -21,7 +21,7 @@ public class ControllerThread extends Thread {
 	public final int DEFAULT_SPAWN_TIME = 6000;
 	public final int DEFAULT_MOVE_TIME = 1000;
 
-	private Random random = new Random();
+	private Random random = new Random(System.currentTimeMillis());
 	
 	public Handler boardHandler;
 	private Board board;
@@ -29,6 +29,7 @@ public class ControllerThread extends Thread {
 	private double spawnSpeedMultiplier;
 	private double moveSpeedMultiplier;
 	private MainView ui;
+	private SpawnerThread spawner;
 	
 	private int lastPieceIdUsed = 0;
 	
@@ -110,6 +111,7 @@ public class ControllerThread extends Thread {
 					}
 				});
 			}
+	
 			
 			private void handleSpawner( Message msg )
 			{
@@ -120,14 +122,14 @@ public class ControllerThread extends Thread {
 				if( msg.arg1 == SPAWNTYPE_SYS )
 				{
 					Log.i("handleSpawner", "System spawn request received");
-					// generate 4 different coordinate sets
+					// generate spawn coordinates for eacchteam's piece
 					int cords[][] = getUniqueCoordinates(ui.NUM_TEAMS);
 					
 					for(int i = 0; i < ui.NUM_TEAMS; i++ ) {
 						spawnPiece(cords[i][0], cords[i][1], (i+1));
 					}
 				}
-				else // SPAWNTYPE_USER
+				else if ( msg.arg1 == SPAWNTYPE_USER ) // SPAWNTYPE_USER
 				{
 					if (! paused) {
 						Log.i("handleSpawner", "User spawn request received");
@@ -136,19 +138,19 @@ public class ControllerThread extends Thread {
 						// process top-right corner (team 2/green)
 						spawnPiece((boardWidth-1),0,2);
 						// process bottom-right corner (team 3/ blue)
-						spawnPiece(0,(boardHeight-1),3);
+						spawnPiece((boardWidth-1),(boardHeight-1),3);
 						// process bottom-left corner (team 4/yellow)
-						spawnPiece((boardWidth-1),(boardHeight-1),4);
+						spawnPiece(0,(boardHeight-1),4);
 					}
 				}
 			}
 		};
 		
-		Message spawnMsg = boardHandler.obtainMessage();
-		spawnMsg.what    = MSGTYPE_SPAWNER;
-		spawnMsg.arg1    = SPAWNTYPE_SYS;
 		
-		boardHandler.sendMessage( spawnMsg );
+		// start SpawnerThread to call for intervaled system spawns
+		//this.spawner = new SpawnerThread(this);
+		//spawner.start();
+		
 			
 		Log.i("Controller", "Looper starting");
 		Looper.loop();
@@ -173,19 +175,19 @@ public class ControllerThread extends Thread {
 		PieceThread newPiece;
 		switch(pieceType) {
 			case 0:		newPiece = new LeftUp_PieceThread( lastPieceIdUsed++, x, y, team, this );
-						Log.i( "Controller", "Spawned LeftUp");
+						Log.i( "Controller.spawnPiece", String.format("Spawned LeftUp @ %d,%d for Team %d",x,y,team));
 						break;
 			case 1:		newPiece = new LeftDown_PieceThread( lastPieceIdUsed++, x, y, team, this );
-						Log.i( "Controller", "Spawned LeftDown");
+						Log.i( "Controller.spawnPiece", String.format("Spawned LeftDown @ %d,%d for Team %d",x,y,team));
 						break;
 			case 2:		newPiece = new RightUp_PieceThread( lastPieceIdUsed++, x, y, team, this );
-						Log.i( "Controller", "Spawned RightUp");
+						Log.i( "Controller.spawnPiece", String.format("Spawned RightUp @ %d,%d for Team %d",x,y,team));
 						break;
 			case 3:		newPiece = new RightDown_PieceThread( lastPieceIdUsed++, x, y, team, this);
-						Log.i( "Controller", "Spawned RightDown");
+						Log.i( "Controller.spawnPiece", String.format("Spawned RightDown @ %d,%d for Team %d",x,y,team));
 						break;
 			default:	newPiece = new Spiral_PieceThread( lastPieceIdUsed++, x, y, team, this);
-						Log.i( "Controller", "Spawned Spiral");
+						Log.i( "Controller.spawnPiece", String.format("Spawned Spiral @ %d,%d for Team %d",x,y,team));
 						break;
 		}
 		
