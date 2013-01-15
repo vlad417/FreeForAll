@@ -106,9 +106,9 @@ public class MainView extends View {
         	{
         		piece = board.getCell(w, h);
         		if( piece != null )
-        			paintCell( canvas, w, h, piece.getTeam() );
+        			paintCell( canvas, w, h, piece.getTeam(), piece.getID() );
         		else
-        			paintCell( canvas, w, h, 0 );
+        			paintCell( canvas, w, h, 0, -1 );
         	}
 		
 		// Update scores
@@ -139,7 +139,7 @@ public class MainView extends View {
 		
 	}
 
-	public void paintCell( Canvas canvas, int x, int y, int team )
+	public void paintCell( Canvas canvas, int x, int y, int team, int id )
 	{
 		canvas.drawRect(
 				x * CELL_WIDTH + x, // +x & +y to make padding around each cell
@@ -147,6 +147,11 @@ public class MainView extends View {
 				(x * CELL_WIDTH) + (CELL_WIDTH -1) + x,
 				(y * CELL_HEIGHT) + (CELL_HEIGHT -1) + y,
 				_cellColors[team]);
+		
+		if( id >= 0 )
+		{
+			canvas.drawText(String.format("%d", id), x * CELL_WIDTH + x + (CELL_WIDTH/2), y * CELL_HEIGHT + y + (CELL_HEIGHT/2), _cellColors[0]);
+		}
 	}
 	
 	public void quitLooper()
