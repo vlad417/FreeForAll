@@ -86,7 +86,7 @@ public class ControllerThread extends Thread {
 				{
 					Log.i("handleMover", String.format("Piece %d eating %d", mover.me.getID(), cell.getID()));
 					cell.eaten();
-					board.givePoint( cell.getTeam() );
+					board.givePoint( mover.me.getTeam() );
 				}
 				
 				// Update board cells
@@ -393,4 +393,13 @@ public class ControllerThread extends Thread {
 		return moving;
 	}
 	
+	public double getSpawnMultiplier()
+	{
+		return spawnSpeedMultiplier;
+	}
+	
+	public double getMoveMultiplier()
+	{
+		return moveSpeedMultiplier;
+	}
 }

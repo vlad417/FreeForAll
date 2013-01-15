@@ -29,6 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/slowdown_string" />
+        
+        <TextView 
+            android:id="@+id/move_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100%"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </LinearLayout>
 
@@ -54,6 +61,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/slowdown_string" />
+        
+        <TextView 
+            android:id="@+id/spawn_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100%"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import org.vxp7755_nxz3937.freeforall.MainView;
 import org.vxp7755_nxz3937.freeforall.R;
 import org.vxp7755_nxz3937.freeforall.MainView.RefreshHandler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -113,23 +114,28 @@ public class MainView extends View {
 		
 		// Update scores
 		int scores[] = board.getScores();
-		TextView team1 = (TextView) findViewById(R.id.team1_score);
-		TextView team2 = (TextView) findViewById(R.id.team2_score);
-		TextView team3 = (TextView) findViewById(R.id.team3_score);
-		TextView team4 = (TextView) findViewById(R.id.team4_score);
+		Activity host = (Activity) getContext();
+		TextView team1 = (TextView) host.findViewById(R.id.team1_score);
+		TextView team2 = (TextView) host.findViewById(R.id.team2_score);
+		TextView team3 = (TextView) host.findViewById(R.id.team3_score);
+		TextView team4 = (TextView) host.findViewById(R.id.team4_score);
 		
 		if( team1 != null)
 		{
-			Log.i("MainView.onDraw", "Updating user scores");
-			team1.setText( scores[0] );
-			team2.setText( scores[1] );
-			team3.setText( scores[2] );
-			team4.setText( scores[3] );
-			
+			Log.i("MainView.onDraw", String.format("Updating scores [%s,%s,%s,%s]", 
+					String.format("%d", scores[0]),
+					String.format("%d", scores[1]),
+					String.format("%d", scores[2]),
+					String.format("%d", scores[3])));
+			team1.setText( String.format("%d", scores[0]) );
+			team2.setText( String.format("%d", scores[1]) );
+			team3.setText( String.format("%d", scores[2]) );
+			team4.setText( String.format("%d", scores[3]) );
+			/*
 			team1.invalidate();
 			team2.invalidate();
 			team3.invalidate();
-			team4.invalidate();
+			team4.invalidate();*/
 		} else {
 			Log.e("MainView.onDraw", "Could not find team_score views");
 			
@@ -174,5 +180,13 @@ public class MainView extends View {
 		Log.i("MainView", "View is starting controller");
 		_ctrlr.start();
 		invalidate();
+	}
+	
+	public double getMoveSpeed() {
+		return _ctrlr.getMoveMultiplier();
+	}
+	
+	public double getSpawnSpeed() {
+		return _ctrlr.getSpawnMultiplier();
 	}
 }
