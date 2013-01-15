@@ -94,6 +94,7 @@ public abstract class PieceThread extends Thread {
 			// spin while not at head of queue
 			while (_ctrlr.pieceQ.peek() != this);
 			
+			
 			Log.i("PieceThread", String.format("Piece %d has left the pieceQ", _id));
 			
 			while (_ctrlr.isDrawing() || _ctrlr.isPaused());

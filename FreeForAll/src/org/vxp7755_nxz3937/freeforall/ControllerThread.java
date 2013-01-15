@@ -104,14 +104,14 @@ public class ControllerThread extends Thread {
 					}
 				});
 				
-				// spin while paused
-				while (isPaused());
+				// allow someone else to move
 				try {
 					pieceQ.take();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 			}
 	
 			
