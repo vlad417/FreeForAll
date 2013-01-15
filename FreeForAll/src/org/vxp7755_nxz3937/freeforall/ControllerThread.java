@@ -258,8 +258,15 @@ public class ControllerThread extends Thread {
 		int[][] result = new int[coordinates.size()][2];
 		for(int i = 0; i < coordinates.size(); i++) {
 			result[i][0] = coordinates.get(i)[0];
-			result[i][0] = coordinates.get(i)[1];
+			result[i][1] = coordinates.get(i)[1];
 		}
+		
+		// log new cooedinates
+		String logMsg = "Returning " + Integer.toString(coordinates.size()) +" coordinates:";
+		for(int i = 0; i < coordinates.size(); i++) {
+			logMsg += String.format(" %d,%d", result[i][0], result[i][1]);
+		}
+		Log.i("getUniqueCoordinates", logMsg);
 		
 		return result;
 	}
