@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 //import org.vxp7755_nxz3937.freeforall.R;
 
 public class ControllerThread extends Thread {
@@ -30,6 +31,7 @@ public class ControllerThread extends Thread {
 	private double moveSpeedMultiplier;
 	private MainView ui;
 	private SpawnerThread spawner;
+	private LinkedBlockingQueue<PieceThread> pieceQ = new LinkedBlockingQueue<PieceThread>();
 	
 	private int lastPieceIdUsed = 0;
 	private boolean moving = false;
@@ -104,7 +106,8 @@ public class ControllerThread extends Thread {
 				});
 				
 				Log.i("handleMover", String.format("Piece %d releasing move lock", mover.me.getID()));
-				moving = false;
+				//moving = false;
+				pieceQ.poll();
 			}
 	
 			
@@ -391,6 +394,17 @@ public class ControllerThread extends Thread {
 	
 	public boolean isMoving() {
 		return moving;
+	}
+	
+	public void enqueueMe(PieceThread piece) {
+		pieceQ.add(piece);
+	}
+	
+	public boolean isPieceQueueEmpty() {
+		if (pieceQ.size() == 0) 
+			return true;
+		else
+			return false;
 	}
 	
 }

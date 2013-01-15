@@ -89,18 +89,16 @@ public abstract class PieceThread extends Thread {
 		Message boardMsg;
 		while( _alive )
 		{
-			// Move this piece
-			// Spin if the board is in the middle of drawing or another piece is moving
-			while( _ctrlr.isDrawing() || _ctrlr.isMoving() )
-				if( !_alive ) // Double check we weren't killed while being locked
-				{
-					Log.i("PieceThread", String.format("Piece %d (team %d) dying", _id, _team));
-					return;
-				}
+			// Enter PieceQ, this should be blocking
+			if (!_ctrlr.isPieceQueueEmpty())
+				_ctrlr.enqueueMe(this);
 			
-			_ctrlr.setMoving();
+			while (_ctrlr.isDrawing());
 			
-			Log.i("PieceThread", String.format("Piece %d (team %d) is move locking", _id, _team));
+			if (!_alive)
+				break;
+			
+			Log.i("PieceThread", String.format("Piece %d (team %d) is moving", _id, _team));
 			
 			getNextMove();
 			
