@@ -62,10 +62,12 @@ public class ControllerThread extends Thread {
 					{
 						handleSpawner( msg );
 					}
-					else
+					else if(msg.what == MSGTYPE_QUIT)
 					{
 						Log.i("BoardHandler", "Quit request received");
 						this.getLooper().quit();
+					} else {
+						Log.i("BoardHandler", "Unknown message received");
 					}
 					
 					// Spin while the board is being redrawn
@@ -143,11 +145,12 @@ public class ControllerThread extends Thread {
 		// start SpawnerThread to call for intervaled system spawns
 		this.spawner = new SpawnerThread(this);
 		spawner.start();
-		
 			
 		Log.i("Controller", "Looper starting");
 		Looper.loop();
+		Log.i("Controller", "Looper done");
 	}
+	
 	
 	/**
 	 * 
@@ -257,11 +260,13 @@ public class ControllerThread extends Thread {
 		return result;
 	}
 	
+	
 	/** Call the UI to redraw board */
 	public void drawCell()
 	{
 		ui._redrawHandler.sendEmptyMessage( 0 );
 	}
+	
 	
 	/** Get the board */
 	public Board getBoard() { return board; }
@@ -318,6 +323,7 @@ public class ControllerThread extends Thread {
 				this.spawnSpeedMultiplier));
 	}
 	
+	
 	/**
 	 * Modify whether or not the simulation is pause
 	 * 
@@ -332,6 +338,7 @@ public class ControllerThread extends Thread {
 			Log.i("switchPause", "paused = false");
 		}
 	}
+	
 	
 	/**
 	 * Retrieves the move delay used by PieceThreads
@@ -363,6 +370,7 @@ public class ControllerThread extends Thread {
 		return this.paused;
 	}
 	
+	
 	/**
 	 * Check if UI is drawing
 	 * 
@@ -372,6 +380,7 @@ public class ControllerThread extends Thread {
 		return ui.isDrawing();
 	}
 	
+	
 	/**
 	 * Mark that the controller is processing a move currently
 	 */
@@ -379,7 +388,9 @@ public class ControllerThread extends Thread {
 		moving = true;
 	}
 	
+	
 	public boolean isMoving() {
 		return moving;
 	}
+	
 }
