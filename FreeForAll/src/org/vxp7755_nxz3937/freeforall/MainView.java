@@ -120,6 +120,7 @@ public class MainView extends View {
 		
 		if( team1 != null)
 		{
+			Log.i("MainView.onDraw", "Updating user scores");
 			team1.setText( scores[0] );
 			team2.setText( scores[1] );
 			team3.setText( scores[2] );
@@ -129,6 +130,9 @@ public class MainView extends View {
 			team2.invalidate();
 			team3.invalidate();
 			team4.invalidate();
+		} else {
+			Log.e("MainView.onDraw", "Could not find team_score views");
+			
 		}
 		
 		_drawing = false;

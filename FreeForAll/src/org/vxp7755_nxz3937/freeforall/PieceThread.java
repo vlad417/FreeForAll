@@ -93,7 +93,7 @@ public abstract class PieceThread extends Thread {
 			// Spin if the board is in the middle of drawing or another piece is moving
 			while( _ctrlr.isDrawing() || _ctrlr.isMoving() );
 			
-			Log.i("PieceThread", String.format("Piece %d is move locking", _id));
+			Log.i("PieceThread", String.format("Piece %d (team %d) is move locking", _id, _team));
 			_ctrlr.setMoving();
 			getNextMove();
 			
@@ -106,16 +106,16 @@ public abstract class PieceThread extends Thread {
 			_ctrlr.boardHandler.sendMessage( boardMsg );
 			
 			try {
-				Log.i("PieceThread", String.format("Piece %d sleeping", _id));
+				Log.i("PieceThread", String.format("Piece %d (team %d) sleeping", _id, _team));
 				sleep( _ctrlr.getMoveDelay() );
-				Log.i("PieceThread", String.format("Piece %d waking up", _id));
+				Log.i("PieceThread", String.format("Piece %d (team %d) waking up", _id, _team));
 			} catch (InterruptedException e) {
 				Log.e( "PieceThread", "sleep interrupted" );
 				e.printStackTrace();
 			}
 		}
 		
-		Log.i("PieceThread", String.format("Piece %d dying", _id));
+		Log.i("PieceThread", String.format("Piece %d (team %d) dying", _id, _team));
 	}
 	
 	/**
