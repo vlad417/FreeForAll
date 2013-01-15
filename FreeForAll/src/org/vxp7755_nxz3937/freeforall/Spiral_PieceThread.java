@@ -22,6 +22,9 @@ public class Spiral_PieceThread extends PieceThread {
 	@Override
 	protected void getNextMove() {
 		
+		_prevX = _x;
+		_prevY = _y;
+		
 		
 		// make move
 		_x = _x + moves[direction][0];

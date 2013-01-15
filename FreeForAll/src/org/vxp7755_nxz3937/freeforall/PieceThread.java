@@ -5,6 +5,8 @@ import android.util.Log;
 
 public abstract class PieceThread extends Thread {
 	protected int _id;
+	protected int _prevX;
+	protected int _prevY;
 	protected int _x;
 	protected int _y;
 	protected int _team;
@@ -16,6 +18,8 @@ public abstract class PieceThread extends Thread {
 		this._id    = id;
 		this._x     = x;
 		this._y     = y;
+		this._prevX = -1;
+		this._prevY = -1;
 		this._team  = team;
 		this._alive = true;
 		this._ctrlr = ctrlr;
@@ -59,6 +63,26 @@ public abstract class PieceThread extends Thread {
 		return _y;
 	}
 	
+	/**
+	 * Retrieve the previous x position of this piece
+	 * 
+	 * @return x position
+	 */
+	public int getPrevX()
+	{
+		return _prevX;
+	}
+	
+	/**
+	 * Retrieve the previous y position of this piece
+	 * 
+	 * @return y position
+	 */
+	public int getPrevY()
+	{
+		return _prevY;
+	}
+	
 	@Override
 	public void run()
 	{
@@ -66,6 +90,11 @@ public abstract class PieceThread extends Thread {
 		while( _alive )
 		{
 			// Move this piece
+			// Spin if the board is in the middle of drawing or another piece is moving
+			while( _ctrlr.isDrawing() || _ctrlr.isMoving() );
+			
+			Log.i("PieceThread", String.format("Piece %d is move locking", _id));
+			_ctrlr.setMoving();
 			getNextMove();
 			
 			// Tell the controller I moved
@@ -84,8 +113,6 @@ public abstract class PieceThread extends Thread {
 				Log.e( "PieceThread", "sleep interrupted" );
 				e.printStackTrace();
 			}
-			
-			while( _ctrlr.isDrawing() );
 		}
 		
 		Log.i("PieceThread", String.format("Piece %d dying", _id));

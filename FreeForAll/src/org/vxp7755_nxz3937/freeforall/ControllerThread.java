@@ -32,6 +32,7 @@ public class ControllerThread extends Thread {
 	private SpawnerThread spawner;
 	
 	private int lastPieceIdUsed = 0;
+	private boolean moving = false;
 	
 	ControllerThread( MainView gui )
 	{
@@ -87,22 +88,11 @@ public class ControllerThread extends Thread {
 				}
 				
 				// Update board cells
-				board.setCell( mover.me.getX(), mover.me.getY(), null);
+				board.setCell( mover.me.getPrevX(), mover.me.getPrevY(), null);
 				board.setCell( mover.x, mover.y, mover.me );
 				
 				// Send messages to UI to update the cell moved from and moved to
-				Handler uiHandler = ui._redrawHandler;
-				Message updateMsg = uiHandler.obtainMessage();
-				
-				UpdateData updateOldLoc = new UpdateData( mover.me.getX(), mover.me.getY(), 0, board.getScores() );
-				UpdateData updateNewLoc = new UpdateData( mover.x, mover.y, 0, board.getScores() );
-				
 				Log.i("handleMover", "Sending UI a message");
-				
-				updateMsg.obj = updateOldLoc;
-				//uiHandler.sendMessage(updateMsg);
-				updateMsg.obj = updateNewLoc;
-				//uiHandler.sendMessage(updateMsg);
 				
 				ui.setDrawing();
 				ui.post( new Runnable(){
@@ -110,6 +100,9 @@ public class ControllerThread extends Thread {
 						ui.invalidate();
 					}
 				});
+				
+				Log.i("handleMover", String.format("Piece %d releasing move lock", mover.me.getID()));
+				moving = false;
 			}
 	
 			
@@ -195,15 +188,8 @@ public class ControllerThread extends Thread {
 		board.setCell(x, y, newPiece);
 		
 		// Send messages to UI to update the cell
-		Handler uiHandler = ui._redrawHandler;
-		Message updateMsg = uiHandler.obtainMessage();
-		
-		UpdateData updateNewLoc = new UpdateData( x, y, 0, board.getScores() );
-		
 		Log.i("spawnPiece", "Sending UI a message");
-		
-		updateMsg.obj = updateNewLoc;
-		//uiHandler.sendMessage(updateMsg);
+
 		ui.setDrawing();
 		ui.post( new Runnable(){
 			public void run(){
@@ -377,5 +363,16 @@ public class ControllerThread extends Thread {
 	 */
 	public boolean isDrawing() {
 		return ui.isDrawing();
+	}
+	
+	/**
+	 * Mark that the controller is processing a move currently
+	 */
+	public void setMoving() {
+		moving = true;
+	}
+	
+	public boolean isMoving() {
+		return moving;
 	}
 }

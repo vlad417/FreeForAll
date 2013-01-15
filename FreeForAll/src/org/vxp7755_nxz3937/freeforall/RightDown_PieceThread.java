@@ -13,6 +13,9 @@ public class RightDown_PieceThread extends PieceThread {
 	@Override
 	protected void getNextMove() {
 		move = (++move) % 2;
+		
+		_prevX = _x;
+		_prevY = _y;
 
 		_x = _x + xMoves[move];
 		_y = _y + yMoves[move];

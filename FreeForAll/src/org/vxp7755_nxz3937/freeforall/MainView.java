@@ -108,10 +108,7 @@ public class MainView extends View {
         		if( piece != null )
         			paintCell( canvas, w, h, piece.getTeam() );
         		else
-        		{
-        			Log.i("OnDraw", String.format("(%d,%d, args) is null", w,h));
         			paintCell( canvas, w, h, 0 );
-        		}
         	}
 		
 		// Update scores
@@ -127,6 +124,11 @@ public class MainView extends View {
 			team2.setText( scores[1] );
 			team3.setText( scores[2] );
 			team4.setText( scores[3] );
+			
+			team1.invalidate();
+			team2.invalidate();
+			team3.invalidate();
+			team4.invalidate();
 		}
 		
 		_drawing = false;
