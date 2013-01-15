@@ -91,10 +91,12 @@ public abstract class PieceThread extends Thread {
 		{
 			// Enter PieceQ, this should be blocking
 			_ctrlr.enqueueMe(this);
+			// spin while not at head of queue
+			while (_ctrlr.pieceQ.peek() != this);
 			
 			Log.i("PieceThread", String.format("Piece %d has left the pieceQ", _id));
 			
-			while (_ctrlr.isDrawing());
+			while (_ctrlr.isDrawing() || _ctrlr.isPaused());
 			
 			if (!_alive)
 				break;

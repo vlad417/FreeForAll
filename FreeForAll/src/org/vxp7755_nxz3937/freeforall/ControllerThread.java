@@ -31,7 +31,7 @@ public class ControllerThread extends Thread {
 	private double moveSpeedMultiplier;
 	private MainView ui;
 	private SpawnerThread spawner;
-	private LinkedBlockingQueue<PieceThread> pieceQ = new LinkedBlockingQueue<PieceThread>();
+	public LinkedBlockingQueue<PieceThread> pieceQ = new LinkedBlockingQueue<PieceThread>();
 	
 	private int lastPieceIdUsed = 0;
 	
