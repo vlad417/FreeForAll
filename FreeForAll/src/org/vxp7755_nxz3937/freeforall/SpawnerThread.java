@@ -25,6 +25,9 @@ public class SpawnerThread extends Thread {
 				_ctrlr.boardHandler.sendMessage( spawnMsg );
 			}
 			
+			if (_ctrlr.pieceQ.peek() != null)
+				Log.i("Spawner",String.format("Next Piece in Queue = %d", _ctrlr.pieceQ.peek()._id));
+			
 			try
 			{
 				sleep( _ctrlr.getSpawnDelay() );

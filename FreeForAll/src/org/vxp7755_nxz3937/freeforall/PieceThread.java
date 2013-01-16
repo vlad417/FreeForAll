@@ -89,18 +89,21 @@ public abstract class PieceThread extends Thread {
 		Message boardMsg;
 		while( _alive )
 		{
-			// Enter PieceQ, this should be blocking
-			_ctrlr.enqueueMe(this);
-			// spin while not at head of queue
-			while (_ctrlr.pieceQ.peek() != this);
+			// add piece to queue
+			try {
+				_ctrlr.pieceQ.put(this);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
+			// wait
+			while (_ctrlr.isDrawing() || _ctrlr.isPaused() || (_ctrlr.pieceQ.peek()._id != _id));
 			
-			Log.i("PieceThread", String.format("Piece %d has left the pieceQ", _id));
-			
-			while (_ctrlr.isDrawing() || _ctrlr.isPaused());
-			
-			if (!_alive)
+			if (!_alive) {
+				_ctrlr.pieceQ.poll();
 				break;
+			}
 			
 			Log.i("PieceThread", String.format("Piece %d (team %d) is moving", _id, _team));
 			
@@ -114,14 +117,18 @@ public abstract class PieceThread extends Thread {
 			boardMsg.obj  = mv;
 			_ctrlr.boardHandler.sendMessage( boardMsg );
 			
-			try {
-				Log.i("PieceThread", String.format("Piece %d (team %d) sleeping", _id, _team));
-				sleep( _ctrlr.getMoveDelay() );
+			_ctrlr.pieceQ.poll();
+			
+			try {	
+				long delay =  _ctrlr.getMoveDelay();
+				Log.i("PieceThread", String.format("Piece %d (team %d) sleeping for %f seconds", _id, _team, (double)(delay/1000)));
+				sleep( delay );
 				Log.i("PieceThread", String.format("Piece %d (team %d) waking up", _id, _team));
 			} catch (InterruptedException e) {
 				Log.e( "PieceThread", "sleep interrupted" );
 				e.printStackTrace();
 			}
+			
 		}
 		
 		Log.i("PieceThread", String.format("Piece %d (team %d) dying", _id, _team));

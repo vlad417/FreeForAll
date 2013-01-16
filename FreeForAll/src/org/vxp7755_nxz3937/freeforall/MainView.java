@@ -114,11 +114,13 @@ public class MainView extends View {
 		
 		// Update scores
 		int scores[] = board.getScores();
+		
 		Activity host = (Activity) getContext();
 		TextView team1 = (TextView) host.findViewById(R.id.team1_score);
 		TextView team2 = (TextView) host.findViewById(R.id.team2_score);
 		TextView team3 = (TextView) host.findViewById(R.id.team3_score);
 		TextView team4 = (TextView) host.findViewById(R.id.team4_score);
+		
 		
 		if( team1 != null)
 		{

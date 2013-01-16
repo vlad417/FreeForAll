@@ -21,6 +21,9 @@ public class ControllerThread extends Thread {
 	
 	public final int DEFAULT_SPAWN_TIME = 6000;
 	public final int DEFAULT_MOVE_TIME = 1000;
+	
+	private final double MIN_DELAY_MULTIPLIER = .25;
+	private final double MAX_DELAY_MULTIPLIER = 4.0;
 
 	private Random random = new Random(System.currentTimeMillis());
 	
@@ -103,15 +106,7 @@ public class ControllerThread extends Thread {
 						ui.invalidate();
 					}
 				});
-				
-				// allow someone else to move
-				try {
-					pieceQ.take();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+
 			}
 	
 			
@@ -284,7 +279,7 @@ public class ControllerThread extends Thread {
 	 */
 	public void moveSpeedUp()
 	{
-		if (this.moveSpeedMultiplier > 0.25) {
+		if (this.moveSpeedMultiplier > MIN_DELAY_MULTIPLIER) {
 			this.moveSpeedMultiplier -= 0.25;
 		}
 		Log.i("moveSpeedUp", String.format("moveSpeedMultiplier = %f",
@@ -297,7 +292,7 @@ public class ControllerThread extends Thread {
 	 */
 	public void moveSlowDown()
 	{
-		if (this.moveSpeedMultiplier < 2.0 ) {
+		if (this.moveSpeedMultiplier < MAX_DELAY_MULTIPLIER ) {
 			this.moveSpeedMultiplier += 0.25;
 		}
 		Log.i("moveSlowDown", String.format("moveSpeedMultiplier = %f",
@@ -310,7 +305,7 @@ public class ControllerThread extends Thread {
 	 */
 	public void spawnSpeedUp()
 	{
-		if (this.spawnSpeedMultiplier > 0.25) {
+		if (this.spawnSpeedMultiplier > MIN_DELAY_MULTIPLIER) {
 			this.spawnSpeedMultiplier -= 0.25;
 		}
 		Log.i("spawnSpeedUp", String.format("spawnSpeedMultiplier = %f",
@@ -323,7 +318,7 @@ public class ControllerThread extends Thread {
 	 */
 	public void spawnSlowDown()
 	{
-		if (this.spawnSpeedMultiplier < 2.0 ) {
+		if (this.spawnSpeedMultiplier < MAX_DELAY_MULTIPLIER ) {
 			this.spawnSpeedMultiplier += 0.25;
 		}
 		Log.i("spawnSlowDown", String.format("spawnSpeedMultiplier = %f",
@@ -387,23 +382,6 @@ public class ControllerThread extends Thread {
 		return ui.isDrawing();
 	}
 	
-	
-	public synchronized void enqueueMe(PieceThread piece) {
-		try {
-			Log.i("Controller", String.format("Piece %d entering pieceQ", piece._id));
-			pieceQ.put(piece);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public synchronized boolean isPieceQueueEmpty() {
-		if (pieceQ.size() == 0) 
-			return true;
-		else
-			return false;
-	}
 	
 	public double getSpawnMultiplier()
 	{
