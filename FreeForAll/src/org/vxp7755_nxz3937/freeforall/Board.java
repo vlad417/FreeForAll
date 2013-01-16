@@ -125,11 +125,6 @@ public class Board {
 		return size;
 	}
 
-	/**
-	 * Move piece to it's new location
-	 * 
-	 * 
-	 */
 	
 	/**
 	 * Move piece to where it wants to be

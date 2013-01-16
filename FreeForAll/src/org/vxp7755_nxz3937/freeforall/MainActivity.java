@@ -99,6 +99,7 @@ public class MainActivity extends Activity implements OnClickListener {
 											R.id.pause_button);
 										_ctrlr.switchPause(box.isChecked());
 										break;
+			// quit action
 			case R.id.quit_button:		CheckBox box2 = (CheckBox) findViewById(
 											R.id.pause_button);
 										box2.setChecked(true);

@@ -155,6 +155,7 @@ public class ControllerThread extends Thread {
 	
 	
 	/**
+	 * span a piece at the new location, eating previous piece if any
 	 * 
 	 * @param team	team number of new piece to spawn (1-4)
 	 * @param x		row to place new PiecesThread
