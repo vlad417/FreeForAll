@@ -22,4 +22,5 @@
 	<string name="team3_title">Team 3:</string>
 	<string name="team4_title">Team 4:</string>
 	<string name="new_game_string">New Game</string>
+	<string name="quit_string">Quit</string>
 </resources>

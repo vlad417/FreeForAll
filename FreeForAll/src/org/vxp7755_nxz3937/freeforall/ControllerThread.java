@@ -95,8 +95,7 @@ public class ControllerThread extends Thread {
 				}
 				
 				// Update board cells
-				board.setCell( mover.me.getPrevX(), mover.me.getPrevY(), null);
-				board.setCell( mover.x, mover.y, mover.me );
+				board.movePiece(mover.me.getPrevX(), mover.me.getPrevY());
 				
 				// Send messages to UI to update the cell moved from and moved to
 				Log.i("handleMover", "Sending UI a message");

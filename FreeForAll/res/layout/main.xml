@@ -80,6 +80,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pause_string" />
+        
+        <Button
+            android:id="@+id/quit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quit_string" />
 
     </LinearLayout>
 

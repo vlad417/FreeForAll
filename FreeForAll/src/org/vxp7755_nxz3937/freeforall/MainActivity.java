@@ -56,6 +56,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		spawnSpeedUpButton.setOnClickListener(this);
 		View spawnSlowDownButton = findViewById(R.id.spawn_slowdown_button);
 		spawnSlowDownButton.setOnClickListener(this);
+		View quitButton = findViewById(R.id.quit_button);
+		quitButton.setOnClickListener(this);
 		
 		// get reference to controller.
 		MainView v = (MainView) getWindow().getDecorView().
@@ -96,6 +98,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			case R.id.pause_button:		CheckBox box = (CheckBox) findViewById(
 											R.id.pause_button);
 										_ctrlr.switchPause(box.isChecked());
+										break;
+			case R.id.quit_button:		CheckBox box2 = (CheckBox) findViewById(
+											R.id.pause_button);
+										box2.setChecked(true);
+										_ctrlr.switchPause(true);
+										finish();
 										break;
 		}
 	}

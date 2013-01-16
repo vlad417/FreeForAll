@@ -124,4 +124,30 @@ public class Board {
 		int size[] = {boardHeight, boardWidth};
 		return size;
 	}
+
+	/**
+	 * Move piece to it's new location
+	 * 
+	 * 
+	 */
+	
+	/**
+	 * Move piece to where it wants to be
+	 * @param currX last known X coordinate of the piece
+	 * @param currY last known Y coordinate of the piece
+	 * @return true if there is a piece located at the specified location, else false
+	 */
+	public synchronized boolean movePiece(int currX, int currY) {
+		
+		PieceThread piece = this.boardCells[currX][currY];
+		
+		if (piece != null) {
+			this.boardCells[currX][currY] = null;
+			this.boardCells[piece._x][piece._y] = piece;
+			//Log.i("Board", String.format("Moving piece %d from %d,%d to %d,%d", currX, currY, piece._x, piece._y));
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
