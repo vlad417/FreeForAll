@@ -121,4 +121,5 @@ public class MainActivity extends Activity implements OnClickListener {
     	super.onDestroy();
     	Log.i("MainActivity","Losing focus");
     }
+
 }

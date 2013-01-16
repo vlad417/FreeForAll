@@ -23,6 +23,7 @@ public abstract class PieceThread extends Thread {
 		this._team  = team;
 		this._alive = true;
 		this._ctrlr = ctrlr;
+		this.setName(String.format("Piece %d", _id));
 	}
 	
 	/**

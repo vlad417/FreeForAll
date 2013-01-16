@@ -10,6 +10,7 @@ public class SpawnerThread extends Thread {
 	SpawnerThread( ControllerThread parent )
 	{
 		_ctrlr = parent;
+		this.setName("Spawner");
 	}
 	
 	@Override

@@ -45,6 +45,7 @@ public class ControllerThread extends Thread {
 		moveSpeedMultiplier = 1.0;
 		ui              = gui;
 		board           = new Board( ui.GRID_WIDTH, ui.GRID_HEIGHT );
+		this.setName("Controller");
 	}
 	
 	@Override
