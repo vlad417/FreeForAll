@@ -1,0 +1,44 @@
+OS1: Operating System Concepts 
+
+Assignment Feedback
+
+My name is: Neil Zimmerman & Vladimir Pribula
+
+My login ID is:	nxz3937 & vxp7755
+
+Assignment name is: Project 2 - Android FreeForAll
+Assignment part is: n/a
+
+What did I learn?
+
+	Thread control and inter-thread communication via Messages on the android
+	platform. Application of MVC design principles in android applications. 
+
+
+What was easy about this assignment?
+
+	Understanding the principles of the Freanzy game and implementing piece
+	action/intelligence.
+
+
+What gave you problems/troubles?
+
+	We had difficulty properly implementing complex interaction between multiple
+	asynchronous game piece threads, the controllers, and the UI. There were
+	issues with starvation that we had to address. We also had issues with the
+	board not properly updating because of non-synchronized calls to modify the
+	game model.
+
+
+What can the instructor do to improve this assignment?
+
+	We don't know, over all we both thought the assignment had a good amount of
+	work involved, and was a good lesson in Android thread interaction.
+
+
+What would you have liked to do in this assignment?
+
+	It would have been interesting to implement some sort of multi-user handling
+	where mulitple mobile devices could connect to a server a join the game,
+	each device being represented by a different player.
+
